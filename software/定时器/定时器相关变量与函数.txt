@@ -1,0 +1,23 @@
+////////////////////////////////////////////////////////////////////////////////
+  * 定时器相关库函数主要集中在 stm32f10x_tim.c 和 stm32f10x_tim.h 中。
+////
+
+
+////////////////////////////////////////////////////////////////////////////////
+  * 1、定时器时钟使能
+    TIM2~TIM4 是挂载在 APB1 下面，所以我们通过 APB1 总线下的时钟使能函数来使能。
+    RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);
+
+
+  * 2、初始化定时器参数,设置自动重装值，分频系数，计数方式等。
+    void TIM_TimeBaseInit(TIM_TypeDef*TIMx,TIM_TimeBaseInitTypeDef* TIM_TimeBaseInitStruct);
+    该函数有两个参数。
+    第一个参数确定的是哪一个计时器。
+    第二个参数是定时器初始化参数结构体指针。
+    typedef struct{
+        uint16_t TIM_Prescaler;          //分频系数
+        uint16_t TIM_CounterMode;        //计数方式
+        uint16_t TIM_Period;             //自动重载计数周期值
+        uint16_t TIM_ClockDivision;      //时钟分频因子。
+        uint8_t TIM_RepetitionCounter;
+    }TIM_TimeBaseInitTypeDef;
