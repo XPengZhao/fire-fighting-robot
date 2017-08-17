@@ -88,6 +88,9 @@ void uart_init(u32 bound){
   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10;//PA10
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;//∏°ø’ ‰»Î
   GPIO_Init(GPIOA, &GPIO_InitStructure);//≥ı ºªØGPIOA.10  
+	
+
+							 
 
   //Usart1 NVIC ≈‰÷√
   NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
