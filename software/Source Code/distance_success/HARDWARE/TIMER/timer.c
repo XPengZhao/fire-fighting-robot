@@ -18,16 +18,16 @@ void TIM2_Cap_Init(u16 arr,u16 psc)
  	NVIC_InitTypeDef NVIC_InitStructure;
 
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);	//使能TIM2时钟
- 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);  //使能GPIOA时钟
+ 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOE, ENABLE);   //使能GPIOE时钟
 	
-	GPIO_InitStructure.GPIO_Pin  = GPIO_Pin_0;  //PA0 清除之前设置  
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU; //PA0 输入  
-	GPIO_Init(GPIOA, &GPIO_InitStructure);
-	GPIO_ResetBits(GPIOA,GPIO_Pin_0);						 //PA0 下拉
+	GPIO_InitStructure.GPIO_Pin  = GPIO_Pin_5;    		    //PE.5 清除之前设置  
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU; 		    //PE.5 输入
+	GPIO_Init(GPIOE, &GPIO_InitStructure);                  //根据设定值初始化PE.5
+	GPIO_ResetBits(GPIOE,GPIO_Pin_5);						//PE.5 下拉电位
 	
 	//初始化定时器2 TIM2	 
-	TIM_TimeBaseStructure.TIM_Period = arr; //设定计数器自动重装值 
-	TIM_TimeBaseStructure.TIM_Prescaler =psc; 	//预分频器   
+	TIM_TimeBaseStructure.TIM_Period = arr; 				//设定计数器自动重装值 
+	TIM_TimeBaseStructure.TIM_Prescaler =psc; 				//预分频器   
 	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1; //设置时钟分割:TDTS = Tck_tim
 	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;  //TIM向上计数模式
 	TIM_TimeBaseInit(TIM2, &TIM_TimeBaseStructure); //根据TIM_TimeBaseInitStruct中指定的参数初始化TIMx的时间基数单位
@@ -91,7 +91,8 @@ void TIM2_IRQHandler(void)
 		   		TIM_OC1PolarityConfig(TIM2,TIM_ICPolarity_Falling);		//CC1P=1 设置为下降沿捕获
 			}		    
 		}			     	    					   
- 	}
+	 }
+	
  
     TIM_ClearITPendingBit(TIM2, TIM_IT_CC1|TIM_IT_Update); //清除中断标志位
  
