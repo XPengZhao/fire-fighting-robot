@@ -1,25 +1,24 @@
 #include "led.h"
 
-
-//初始化PB5和PE5为输出口.并使能这两个口的时钟		    
-//LED IO初始化
+//trig-->PC.13    echo-->PA.0
+//鍒濆鍖朠A.0&PC.13.骞朵娇鑳借繖涓や釜鍙ｇ殑鏃堕挓
 void LED_Init(void)
 {
  
  GPIO_InitTypeDef  GPIO_InitStructure;
  	
- RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);	 //使能PA,PD端口时钟
+ RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);	 //浣胯兘PA,PC绔彛鏃堕挓
  RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
 	
- 		//USART1_TX   GPIOE.1
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13; //PE1
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13;             //PC.13
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;        //trig   PC13
-  GPIO_Init(GPIOC, &GPIO_InitStructure);//初始化GPIOE.1
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;       //trig   PC13
+  GPIO_Init(GPIOC, &GPIO_InitStructure);                 //鍒濆鍖朑PIOC.1
+  GPIO_ResetBits(GPIOC,GPIO_Pin_13);
    
-  //USART1_RX	  GPIOE.2
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;//PE2
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;//   echo   PA0
-  GPIO_Init(GPIOA, &GPIO_InitStructure);//初始化GPIOE.2
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;              //PA.0
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;          //echo   PA0
+  GPIO_Init(GPIOA, &GPIO_InitStructure);                 //鍒濆鍖朠A.0
+  GPIO_ResetBits(GPIOA,GPIO_Pin_0);
 }
  

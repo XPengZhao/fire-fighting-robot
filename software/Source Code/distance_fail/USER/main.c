@@ -15,15 +15,14 @@
 	uart_init(9600);
 	LED_Init();
 	printf("ss\t");
-	TIM3_Int_Init(49999,719); 
-	GPIO_ResetBits(GPIOC,GPIO_Pin_13);
+	TIM3_Int_Init(49999,71); 
 	while (1)
 		{
 		GPIO_SetBits(GPIOC,GPIO_Pin_13);
-		delay_us(20);//拉高20us,发射超声波
+		delay_us(20);						//拉高20us,发射超声波
 		GPIO_ResetBits(GPIOC,GPIO_Pin_13);
 		printf("清零前：%d\r\n",TIM3->CNT);
-		TIM3->CNT=0;//计时器清零
+		TIM3->CNT=0;						//计时器清零
 		printf("a\t");
 		while(GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_0)==0);//等待ECHO高电平
 		printf("b\t");
