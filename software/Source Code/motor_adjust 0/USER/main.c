@@ -11,10 +11,9 @@ int main(void)
 		Motor0=1;
 		Motor1=1;
 		
-		delay_us(1300);
+		delay_us(1500);
 		Motor0=0;
-		delay_us(400);
 		Motor1=0;
-		delay_us(18300);
+		delay_us(18500);
 	}
 }

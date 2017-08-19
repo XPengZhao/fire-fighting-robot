@@ -1,0 +1,94 @@
+////////////////////////////////////////////////////////////////////////////////
+  * STM32 的每个 IO 端口都有 7 个寄存器来控制。他们分别是：
+
+    1、配置模式的 2 个 32 位的端口配置寄存器 CRL 和 CRH。
+    2、2 个 32 位的数据寄存器 IDR 和 ODR。
+    3、1 个 32 位的置位/复位寄存器BSRR。
+    4、1 个 16 位的复位寄存器 BRR。
+    5、1 个 32 位的锁存寄存器 LCKR。
+
+    具体可以参考《STM32 中文参考手册 V10》P105~P129。
+////
+
+/-------------------------------------1----------------------------------------/
+  * void GPIO_Init(GPIO_TypeDef* GPIOx, GPIO_InitTypeDef* GPIO_InitStruct);
+
+  * CRL 和 CRH 控制着每个 IO 口的模式及输出速率。
+
+  * 操作寄存器 CRH 和 CRL 来配置 IO 口的模式和速度是通过 GPIO 初始化函数完成：
+    void GPIO_Init(GPIO_TypeDef* GPIOx, GPIO_InitTypeDef* GPIO_InitStruct)；
+
+  * 第一个参数是用来指定 GPIO，取值范围为 GPIOA~GPIOG。
+
+  * 第二个参数为初始化参数结构体指针，结构体类型为 GPIO_InitTypeDef。
+    typedef struct{
+        uint16_t GPIO_Pin;              //要初始化的IO口,如GPIO_Pin_0
+        GPIOSpeed_TypeDef GPIO_Speed;   //IO 口速度设置 
+        GPIOMode_TypeDef GPIO_Mode;     //IO 口输出输入模式
+    }GPIO_InitTypeDef;
+
+    对于 GPIO_Pin，stm32f10x_gpio.h 给出宏定义：
+    {
+        #define GPIO_Pin_0                 ((uint16_t)0x0001) 
+        #define GPIO_Pin_1                 ((uint16_t)0x0002)  
+        #define GPIO_Pin_2                 ((uint16_t)0x0004)  
+        #define GPIO_Pin_3                 ((uint16_t)0x0008)  
+        #define GPIO_Pin_4                 ((uint16_t)0x0010)  
+        #define GPIO_Pin_5                 ((uint16_t)0x0020)  
+        #define GPIO_Pin_6                 ((uint16_t)0x0040) 
+        #define GPIO_Pin_7                 ((uint16_t)0x0080)  
+        #define GPIO_Pin_8                 ((uint16_t)0x0100)  
+        #define GPIO_Pin_9                 ((uint16_t)0x0200) 
+        #define GPIO_Pin_10                ((uint16_t)0x0400) 
+        #define GPIO_Pin_11                ((uint16_t)0x0800)  
+        #define GPIO_Pin_12                ((uint16_t)0x1000)  
+        #define GPIO_Pin_13                ((uint16_t)0x2000)  
+        #define GPIO_Pin_14                ((uint16_t)0x4000) 
+        #define GPIO_Pin_15                ((uint16_t)0x8000)  
+        #define GPIO_Pin_All               ((uint16_t)0xFFFF)
+    }
+
+    对于 GPIO_Speed, stm32f10x_gpio.h 给出枚举类型：
+    typedef enum{ 
+        GPIO_Speed_10MHz = 1,
+        GPIO_Speed_2MHz, 
+        GPIO_Speed_50MHz
+    }GPIOSpeed_TypeDef;
+
+    对于 GPIO_Mode，stm32f10x_gpio.h 给出枚举类型：
+    typedef enum{ 
+      GPIO_Mode_AIN = 0x0,               //模拟输入
+      GPIO_Mode_IN_FLOATING = 0x04,      //浮空输入
+      GPIO_Mode_IPD = 0x28,              //下拉输入
+      GPIO_Mode_IPU = 0x48,              //上拉输入
+      GPIO_Mode_Out_OD = 0x14,           //开漏输出
+      GPIO_Mode_Out_PP = 0x10,           //通用推挽输出
+      GPIO_Mode_AF_OD = 0x1C,            //复用开漏输出
+      GPIO_Mode_AF_PP = 0x18             //复用推挽
+    }GPIOMode_TypeDef;
+////
+
+/-------------------------------------2----------------------------------------/
+  * uint8_t GPIO_ReadInputDataBit(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin);
+
+  * IDR是一个端口输入数据寄存器，只用了低16位。该寄存器为只读寄存器，并且只能以16位的形式读  
+    出。要想知道某个IO口的电平状态，你只要读这个寄存器，再看某个位的状态就可以了。
+
+  * 在固件库中操作 IDR 寄存器读取 IO 端口数据是通过 GPIO_ReadInputDataBit 函数实现的：
+    uint8_t GPIO_ReadInputDataBit(GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin);
+
+  * 第一个参数是用来指定 GPIO，取值范围为 GPIOA~GPIOG。
+
+  * 第二个参数是要初始化的IO口,如GPIO_Pin_0。
+
+  * 函数的返回值是 1(Bit_SET)或者 0(Bit_RESET)，即高电平与低电平。
+////
+
+/-------------------------------------3----------------------------------------/
+  * void GPIO_Write(GPIO_TypeDef* GPIOx, uint16_t PortVal);
+
+  * ODR 是一个端口输出数据寄存器，也只用了低 16 位，该寄存器为可读写。
+    从该寄存器读出来的数据可以用于判断当前 IO 口的输出状态。
+    而向该寄存器写数据，则可以控制某个 IO 口的输出电平。
+
+  * 

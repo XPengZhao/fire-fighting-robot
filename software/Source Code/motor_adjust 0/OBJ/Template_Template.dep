@@ -1,5 +1,5 @@
 Dependencies for Project 'template', Target 'Template': (DO NOT MODIFY !)
-F (.\main.c)(0x5991555C)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I..\USER -I..\CORE -I..\STM32F10x_FWLib\inc -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\HARDWARE-I "D:\Users\fl5900u\Documents\Github\stm32-learning-notebook\software\Source Code\motor_adjust 0\USER\RTE"-I D:\Users\fl5900u\STM32MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\Users\fl5900u\STM32MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\main.o --omf_browse ..\obj\main.crf --depend ..\obj\main.d)
+F (.\main.c)(0x5997FFE7)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I..\USER -I..\CORE -I..\STM32F10x_FWLib\inc -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\HARDWARE-I "D:\Users\fl5900u\Documents\Github\stm32-learning-notebook\software\Source Code\motor_adjust 0\USER\RTE"-I D:\Users\fl5900u\STM32MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\Users\fl5900u\STM32MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\main.o --omf_browse ..\obj\main.crf --depend ..\obj\main.d)
 I (stm32f10x.h)(0x59905D3E)
 I (..\CORE\core_cm3.h)(0x59905D3D)
 I (D:\Users\fl5900u\STM32MDK5\ARM\ARMCC\include\stdint.h)(0x5475F300)
@@ -856,7 +856,7 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x59905D3E)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x59905D3E)
 I (..\SYSTEM\usart\usart.h)(0x59905D3E)
 I (D:\Users\fl5900u\STM32MDK5\ARM\ARMCC\include\stdio.h)(0x5475F300)
-F (..\HARDWARE\motor.c)(0x5996AC67)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I..\USER -I..\CORE -I..\STM32F10x_FWLib\inc -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\HARDWARE-I "D:\Users\fl5900u\Documents\Github\stm32-learning-notebook\software\Source Code\motor_adjust 0\USER\RTE"-I D:\Users\fl5900u\STM32MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\Users\fl5900u\STM32MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\motor.o --omf_browse ..\obj\motor.crf --depend ..\obj\motor.d)
+F (..\HARDWARE\motor.c)(0x59971B76)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I..\USER -I..\CORE -I..\STM32F10x_FWLib\inc -I..\SYSTEM\delay -I..\SYSTEM\sys -I..\SYSTEM\usart -I..\HARDWARE-I "D:\Users\fl5900u\Documents\Github\stm32-learning-notebook\software\Source Code\motor_adjust 0\USER\RTE"-I D:\Users\fl5900u\STM32MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-I D:\Users\fl5900u\STM32MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="514" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\motor.o --omf_browse ..\obj\motor.crf --depend ..\obj\motor.d)
 I (..\HARDWARE\motor.h)(0x5991323A)
 I (..\SYSTEM\sys\sys.h)(0x59905D3E)
 I (..\USER\stm32f10x.h)(0x59905D3E)

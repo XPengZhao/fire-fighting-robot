@@ -2,10 +2,8 @@
 #include "delay.h"
 #include "sys.h"
 #include "timer.h"
-//ALIENTEK Mini STM32开发板范例代码7
-//定时器中断实验   
-//技术支持：www.openedv.com
-//广州市星翼电子科技有限公司
+
+
  int main(void)
 {
 	u16 count;
