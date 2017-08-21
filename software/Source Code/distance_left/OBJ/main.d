@@ -1,5 +1,5 @@
 ..\obj\main.o: main.c
-..\obj\main.o: ..\HARDWARE\WAVE_RIGHT\wave_right.h
+..\obj\main.o: ..\HARDWARE\WAVE_LEFT\wave_left.h
 ..\obj\main.o: ..\SYSTEM\sys\sys.h
 ..\obj\main.o: ..\USER\stm32f10x.h
 ..\obj\main.o: ..\CORE\core_cm3.h

@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\OBJ\ICAPTURE.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\OBJ\ICAPTURE.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Sat Aug 19 11:26:53 2017
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Mon Aug 21 14:00:37 2017
 <BR><P>
 <H3>Maximum Stack Usage =        128 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -256,7 +256,7 @@ Global Symbols
 <LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
 <LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
 <LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_init
-<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WAVE_Right_Init
+<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WAVE_Left_Init
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM2_Cap_Init
 <LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_PriorityGroupConfig
 <LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
@@ -301,7 +301,7 @@ Global Symbols
 </UL>
 <P><STRONG><a name="[c2]"></a>SystemCoreClockUpdate</STRONG> (Thumb, 142 bytes, Stack size 8 bytes, system_stm32f10x.o(.text), UNUSED)
 
-<P><STRONG><a name="[63]"></a>TIM2_Cap_Init</STRONG> (Thumb, 158 bytes, Stack size 32 bytes, timer.o(.text))
+<P><STRONG><a name="[63]"></a>TIM2_Cap_Init</STRONG> (Thumb, 160 bytes, Stack size 32 bytes, timer.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 68<LI>Call Chain = TIM2_Cap_Init &rArr; TIM_ICInit &rArr; TI1_Config
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_TimeBaseInit
@@ -317,19 +317,19 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[29]"></a>TIM2_IRQHandler</STRONG> (Thumb, 186 bytes, Stack size 8 bytes, timer.o(.text))
+<P><STRONG><a name="[29]"></a>TIM2_IRQHandler</STRONG> (Thumb, 184 bytes, Stack size 8 bytes, timer.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = TIM2_IRQHandler &rArr; TIM_GetITStatus
 </UL>
 <BR>[Calls]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_SetCounter
-<LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC1PolarityConfig
+<LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_OC2PolarityConfig
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetITStatus
-<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetCapture1
+<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetCapture2
 <LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ClearITPendingBit
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_hd.o(RESET)
 </UL>
-<P><STRONG><a name="[62]"></a>WAVE_Right_Init</STRONG> (Thumb, 74 bytes, Stack size 8 bytes, wave_right.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = WAVE_Right_Init &rArr; GPIO_Init
+<P><STRONG><a name="[62]"></a>WAVE_Left_Init</STRONG> (Thumb, 74 bytes, Stack size 8 bytes, wave_left.o(.text))
+<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = WAVE_Left_Init &rArr; GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
 <LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
@@ -579,7 +579,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = GPIO_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_init
-<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WAVE_Right_Init
+<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WAVE_Left_Init
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM2_Cap_Init
 </UL>
 
@@ -598,7 +598,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[66]"></a>GPIO_ResetBits</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f10x_gpio.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WAVE_Right_Init
+<BR><BR>[Called By]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WAVE_Left_Init
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM2_Cap_Init
 <LI><a href="#[59]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -673,7 +673,7 @@ Global Symbols
 
 <P><STRONG><a name="[6c]"></a>RCC_APB2PeriphClockCmd</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f10x_rcc.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uart_init
-<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WAVE_Right_Init
+<LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WAVE_Left_Init
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM2_Cap_Init
 </UL>
 
@@ -962,13 +962,13 @@ Global Symbols
 
 <P><STRONG><a name="[126]"></a>TIM_ClearOC4Ref</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, stm32f10x_tim.o(.text), UNUSED)
 
-<P><STRONG><a name="[75]"></a>TIM_OC1PolarityConfig</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f10x_tim.o(.text))
+<P><STRONG><a name="[127]"></a>TIM_OC1PolarityConfig</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f10x_tim.o(.text), UNUSED)
+
+<P><STRONG><a name="[128]"></a>TIM_OC1NPolarityConfig</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f10x_tim.o(.text), UNUSED)
+
+<P><STRONG><a name="[75]"></a>TIM_OC2PolarityConfig</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f10x_tim.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[29]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM2_IRQHandler
 </UL>
-
-<P><STRONG><a name="[127]"></a>TIM_OC1NPolarityConfig</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f10x_tim.o(.text), UNUSED)
-
-<P><STRONG><a name="[128]"></a>TIM_OC2PolarityConfig</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f10x_tim.o(.text), UNUSED)
 
 <P><STRONG><a name="[129]"></a>TIM_OC2NPolarityConfig</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, stm32f10x_tim.o(.text), UNUSED)
 
@@ -1014,11 +1014,11 @@ Global Symbols
 
 <P><STRONG><a name="[13c]"></a>TIM_SetClockDivision</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f10x_tim.o(.text), UNUSED)
 
-<P><STRONG><a name="[74]"></a>TIM_GetCapture1</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f10x_tim.o(.text))
+<P><STRONG><a name="[13d]"></a>TIM_GetCapture1</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f10x_tim.o(.text), UNUSED)
+
+<P><STRONG><a name="[74]"></a>TIM_GetCapture2</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f10x_tim.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[29]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM2_IRQHandler
 </UL>
-
-<P><STRONG><a name="[13d]"></a>TIM_GetCapture2</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f10x_tim.o(.text), UNUSED)
 
 <P><STRONG><a name="[13e]"></a>TIM_GetCapture3</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f10x_tim.o(.text), UNUSED)
 

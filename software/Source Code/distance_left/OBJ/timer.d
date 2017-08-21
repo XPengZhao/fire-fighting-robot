@@ -30,6 +30,6 @@
 ..\obj\timer.o: ..\STM32F10x_FWLib\inc\stm32f10x_usart.h
 ..\obj\timer.o: ..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h
 ..\obj\timer.o: ..\STM32F10x_FWLib\inc\misc.h
-..\obj\timer.o: ..\HARDWARE\WAVE_RIGHT\wave_right.h
+..\obj\timer.o: ..\HARDWARE\WAVE_LEFT\wave_left.h
 ..\obj\timer.o: ..\SYSTEM\usart\usart.h
 ..\obj\timer.o: D:\Users\fl5900u\STM32MDK5\ARM\ARMCC\Bin\..\include\stdio.h

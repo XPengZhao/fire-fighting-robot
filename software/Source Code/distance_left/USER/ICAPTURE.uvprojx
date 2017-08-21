@@ -365,7 +365,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F10X_HD,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\STM32F10x_FWLib\inc;..\CORE;..\HARDWARE\TIMER;..\HARDWARE\WAVE_RIGHT</IncludePath>
+              <IncludePath>..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\STM32F10x_FWLib\inc;..\CORE;..\HARDWARE\TIMER;..\HARDWARE\WAVE_LEFT</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -434,9 +434,9 @@
               <FilePath>..\HARDWARE\TIMER\timer.c</FilePath>
             </File>
             <File>
-              <FileName>wave_right.c</FileName>
+              <FileName>wave_left.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\HARDWARE\WAVE_RIGHT\wave_right.c</FilePath>
+              <FilePath>..\HARDWARE\WAVE_LEFT\wave_left.c</FilePath>
             </File>
           </Files>
         </Group>
