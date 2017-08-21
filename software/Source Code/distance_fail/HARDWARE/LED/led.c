@@ -17,7 +17,7 @@ void LED_Init(void)
   GPIO_ResetBits(GPIOC,GPIO_Pin_13);
    
   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;              //PA.0
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;          //echo   PA0
+  GPIO_InitStructure.GPIO_Mode =  GPIO_Mode_IPU;          //echo   PA0
   GPIO_Init(GPIOA, &GPIO_InitStructure);                 //初始化PA.0
   GPIO_ResetBits(GPIOA,GPIO_Pin_0);
 }

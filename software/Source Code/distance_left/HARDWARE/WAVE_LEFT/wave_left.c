@@ -17,6 +17,6 @@ void WAVE_Left_Init(void)
  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;	    		 //echo-->PA.1 端口配置
  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;           //上拉输入
  GPIO_Init(GPIOA, &GPIO_InitStructure);	  				 //IO口速度为50MHz
- GPIO_ResetBits(GPIOA,GPIO_Pin_1); 						 //PA.1 输出低
+ GPIO_ResetBits(GPIOA,GPIO_Pin_1); 						 //echo 输出低
 }
  

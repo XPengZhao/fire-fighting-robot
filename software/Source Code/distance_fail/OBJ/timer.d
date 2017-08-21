@@ -33,3 +33,4 @@
 ..\obj\timer.o: ..\HARDWARE\LED\led.h
 ..\obj\timer.o: ..\SYSTEM\usart\usart.h
 ..\obj\timer.o: D:\Users\fl5900u\STM32MDK5\ARM\ARMCC\Bin\..\include\stdio.h
+..\obj\timer.o: ..\SYSTEM\delay\delay.h

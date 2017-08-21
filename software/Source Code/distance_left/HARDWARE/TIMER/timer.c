@@ -21,7 +21,7 @@ void TIM2_Cap_Init(u16 arr,u16 psc)
  	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);   //使能GPIOA时钟
 	
 	GPIO_InitStructure.GPIO_Pin  = GPIO_Pin_1;    		    //PA.1 清除之前设置  
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU; 		    //PA.1 输入
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU; 		    //PA.1 上拉输入
 	GPIO_Init(GPIOA, &GPIO_InitStructure);                  //根据设定值初始化PA.1
 	GPIO_ResetBits(GPIOA,GPIO_Pin_1);						//PA.1 下拉电位
 	
