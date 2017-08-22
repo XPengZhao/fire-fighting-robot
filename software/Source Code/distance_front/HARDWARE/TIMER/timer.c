@@ -18,7 +18,7 @@ void TIM3_Cap_Init(u16 arr,u16 psc)
  	NVIC_InitTypeDef NVIC_InitStructure;
 
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);	//使能TIM3时钟
- 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);   //使能GPIOA时钟
+ 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);   //使能GPIOB时钟
 	
 	GPIO_InitStructure.GPIO_Pin  = GPIO_Pin_0;    		    //PB.0 清除之前设置  
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU; 		    //PB.0 上拉输入
