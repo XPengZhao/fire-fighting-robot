@@ -19,15 +19,15 @@
   * 需要用到的寄存器有：TIMx_ARR、 TIMx_PSC、TIMx_CCMRx、TIMx_CCER、TIMx_DIER、
     TIMx_CR1、TIMx_CCRx 
 
-  * --------TIMx_ARR--------
+  * ----------------TIMx_ARR----------------
     @ TIMx_ARR
     TIMx_ARR:自动装载寄存器
 
-  * --------TIMx_PSC--------
+  * ----------------TIMx_PSC----------------
     @ TIMx_PSC
     TIMx_PSC:预分频器寄存器
 
-  * -------TIMx_CCMRx-------
+  * ---------------TIMx_CCMRx---------------
     @ TIMx_CCMRx
     TIMx_CCMRx:捕获/比较模式寄存器
 
@@ -35,18 +35,18 @@
     TIMx_CCMR1控制TIMx_CH1与TIMx_CH2
     TIMx_CCMR2控制TIMx_CH3与TIMx_CH4
 
-  * -------TIMx_CCER--------
+  * ---------------TIMx_CCER----------------
     @ TIMx_CCER
     TIM_CCER:捕获/比较使能寄存器
 
-  * -------TIMx_DIER--------
+  * ---------------TIMx_DIER----------------
     @ TIM_DIER
     TIM_DIER:DMA/中断使能寄存器
   
-  * --------TIMx_CR1--------
+  * ----------------TIMx_CR1----------------
     @TIM_CR1
     TIM_CR1:控制寄存器
-  * -------TIMx_CCRx---------
+  * ---------------TIMx_CCRx----------------
     @TIMx_CCRx
     TIM_CCRx:捕获/比较寄存器
 
@@ -64,10 +64,32 @@
   ------------------------------捕获高电平脉宽的思路-------------------------------
   @ 测量高电平脉宽程序设计
 
-  * 在这里，我们用到的是TIM3的捕获通道3(TIM3_CH3)来测量高电平脉宽。
-  * 查找数据手册可知，PB.0引脚对应的是TIM3_CH3。
+  * ----------------使用的定时器与引脚----------------
+    在这里，我们用到的是TIM3的捕获通道3(TIM3_CH3)来测量高电平脉宽。
+    查找数据手册可知，PB.0引脚对应的是TIM3_CH3。
 
-  
+  * --------------------程序思路---------------------
+    @ 端口与计时器配置与使能
+      * 定义GPIO口配置、计时器配置、中断配置结构体。后面会用到。
+        {
+          GPIO_InitTypeDef  GPIO_InitStructure;
+          TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
+          NVIC_InitTypeDef  NVIC_InitStructure;
+        }
+        关于这些结构体的用法，可以查看库函数中的定义，或者查看对应章节的知识。
+
+      * 因为要用到PB.0与TIM3，首先使能GPIOB与TIM3的时钟。
+        其中GPIOx的时钟挂在APB2下，TIM3的时钟挂在APB1下。
+
+      * 配置PB.0的参数并根据设定值初始化PB.0
+        {
+          GPIO_InitStructure.GPIO_Pin  = GPIO_Pin_0;    //PB.0 清除之前设置  
+          GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU; //PB.0 上拉输入
+          GPIO_Init(GPIOB, &GPIO_InitStructure);        //根据设定值初始化PB.0
+          GPIO_ResetBits(GPIOB,GPIO_Pin_0);						  //PB.0 设置为低电平
+        }
+
+
 
 
 
