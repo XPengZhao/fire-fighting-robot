@@ -82,14 +82,14 @@ void TIM3_IRQHandler(void)
 				TIM3CH3_CAPTURE_STA|=0X80;		//标记成功捕获到一次上升沿
 				TIM3CH3_CAPTURE_VAL=TIM_GetCapture3(TIM3);
 				printf("VAL:%d\t",TIM3CH3_CAPTURE_VAL);
-		   		TIM_OC2PolarityConfig(TIM3,TIM_ICPolarity_Rising); //CC2P=0 设置为上升沿捕获
+		   		TIM_OC3PolarityConfig(TIM3,TIM_ICPolarity_Rising); //CC3P=0 设置为上升沿捕获
 			}else  								//还未开始,第一次捕获上升沿
 			{
 				TIM3CH3_CAPTURE_STA=0;			//清空
 				TIM3CH3_CAPTURE_VAL=0;
 	 			TIM_SetCounter(TIM3,0);
 				TIM3CH3_CAPTURE_STA|=0X40;		//标记捕获到了上升沿
-		   		TIM_OC3PolarityConfig(TIM3,TIM_ICPolarity_Falling);		//CC2P=1 设置为下降沿捕获
+		   		TIM_OC3PolarityConfig(TIM3,TIM_ICPolarity_Falling);		//CC3P=1 设置为下降沿捕获
 			}		    
 		}			     	    					   
 	 }

@@ -32,8 +32,7 @@ extern u16	TIM3CH3_CAPTURE_VAL;	//输入捕获值
 			distance /= 10000;
 			printf("HIGH:%d cm\r\n",distance);	//打印总的高点平时间
  			TIM3CH3_CAPTURE_STA=0;			//开启下一次捕获
-			delay_ms(50
-			0);
+			delay_ms(50);
  		}
 	}
 }

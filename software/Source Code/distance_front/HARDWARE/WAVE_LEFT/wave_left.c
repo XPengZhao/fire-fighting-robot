@@ -1,5 +1,5 @@
 #include "wave_left.h"
-//左超声波 PE.0-->trig    PB.0-->echo
+//左超声波 PC.13-->trig    PB.0-->echo
 //初始化PB.0&PE.0并使能这两个口的时钟		    
 void WAVE_Left_Init(void)
 {
