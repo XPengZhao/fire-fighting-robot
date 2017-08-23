@@ -86,7 +86,7 @@
           GPIO_InitStructure.GPIO_Pin  = GPIO_Pin_0;    //PB.0 清除之前设置  
           GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU; //PB.0 上拉输入
           GPIO_Init(GPIOB, &GPIO_InitStructure);        //根据设定值初始化PB.0
-          GPIO_ResetBits(GPIOB,GPIO_Pin_0);						  //PB.0 设置为低电平
+          GPIO_ResetBits(GPIOB,GPIO_Pin_0);             //PB.0 设置为低电平
         }
 
 
