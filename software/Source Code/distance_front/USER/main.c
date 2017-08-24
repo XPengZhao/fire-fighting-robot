@@ -20,9 +20,9 @@ extern u16	TIM3CH3_CAPTURE_VAL;	//输入捕获值
  	TIM3_Cap_Init(49999,71);		//以1Mhz的频率计数 
    	while(1)
 	{	
- 		GPIO_SetBits(GPIOE,GPIO_Pin_0);     //PE.0-->trig 拉低电平
+ 		GPIO_SetBits(GPIOC,GPIO_Pin_13);     //PE.0-->trig 拉低电平
 		delay_us(20);
-		GPIO_ResetBits(GPIOE,GPIO_Pin_0);	//PE.0-->trig 拉高电平
+		GPIO_ResetBits(GPIOC,GPIO_Pin_13);	//PE.0-->trig 拉高电平
 		if(TIM3CH3_CAPTURE_STA&0X80)        //成功捕获到了一次高电平
 		{
 			temp=TIM3CH3_CAPTURE_STA&0X3F;
