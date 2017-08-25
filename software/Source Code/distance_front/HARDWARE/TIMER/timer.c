@@ -59,42 +59,35 @@ u16	TIM3CH3_CAPTURE_VAL;	//输入捕获值
  
 //定时器3中断服务程序	 
 void TIM3_IRQHandler(void)
-{ 
-
- 	if((TIM3CH3_CAPTURE_STA&0X80)==0)//还未成功捕获	
-	{	  
-		if (TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET)
-		 
-		{
-			if(TIM3CH3_CAPTURE_STA&0X40)//已经捕获到高电平了
+{
+	if((TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET))
+		if((TIM3CH3_CAPTURE_STA&0X80)==0)
+			if(TIM3CH3_CAPTURE_STA&0X40)
 			{
 				if((TIM3CH3_CAPTURE_STA&0X3F)==0X3F)//高电平太长了
 				{
 					TIM3CH3_CAPTURE_STA|=0X80;//标记成功捕获了一次
 					TIM3CH3_CAPTURE_VAL=0XFFFF;
-				}else TIM3CH3_CAPTURE_STA++;
-			}	 
+				}
+				else 
+					TIM3CH3_CAPTURE_STA++;
+			}
+	if(TIM_GetITStatus(TIM3, TIM_IT_CC3) != RESET)//通道3发生捕获事件
+	{
+		if(TIM3CH3_CAPTURE_STA&0X40)		//捕获到一个下降沿 		
+		{ 			
+			TIM3CH3_CAPTURE_STA|=0X80;		//标记成功捕获到一个完整脉冲
+			TIM3CH3_CAPTURE_VAL=TIM_GetCapture3(TIM3);
+			TIM_OC3PolarityConfig(TIM3,TIM_ICPolarity_Rising); //CC3P=0 设置为上升沿捕获
 		}
-	if (TIM_GetITStatus(TIM3, TIM_IT_CC3) != RESET)//捕获1发生捕获事件
-		{	
-			if(TIM3CH3_CAPTURE_STA&0X40)		//捕获到一个下降沿 		
-			{ 			
-				TIM3CH3_CAPTURE_STA|=0X80;		//标记成功捕获到一次上升沿
-				TIM3CH3_CAPTURE_VAL=TIM_GetCapture3(TIM3);
-				printf("VAL:%d\t",TIM3CH3_CAPTURE_VAL);
-		   		TIM_OC3PolarityConfig(TIM3,TIM_ICPolarity_Rising); //CC3P=0 设置为上升沿捕获
-			}else  								//还未开始,第一次捕获上升沿
-			{
-				TIM3CH3_CAPTURE_STA=0;			//清空
-				TIM3CH3_CAPTURE_VAL=0;
-	 			TIM_SetCounter(TIM3,0);
-				TIM3CH3_CAPTURE_STA|=0X40;		//标记捕获到了上升沿
-		   		TIM_OC3PolarityConfig(TIM3,TIM_ICPolarity_Falling);		//CC3P=1 设置为下降沿捕获
-			}		    
-		}			     	    					   
-	 }
-	
- 
-    TIM_ClearITPendingBit(TIM3, TIM_IT_CC3|TIM_IT_Update); //清除中断标志位
- 
+		else                            //还未开始,第一次捕获上升沿
+		{
+			TIM3CH3_CAPTURE_STA=0;      //清空
+			TIM3CH3_CAPTURE_VAL=0;
+			TIM_SetCounter(TIM3,0);
+			TIM3CH3_CAPTURE_STA|=0X40;  //标记捕获到了上升沿
+			TIM_OC3PolarityConfig(TIM3,TIM_ICPolarity_Falling);		//CC3P=1 设置为下降沿捕获
+		}    
+	}
+	TIM_ClearITPendingBit(TIM3, TIM_IT_CC3|TIM_IT_Update); //清除中断标志位
 }
