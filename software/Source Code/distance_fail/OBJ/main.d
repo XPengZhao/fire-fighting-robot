@@ -34,3 +34,4 @@
 ..\obj\main.o: ..\HARDWARE\TIMER\timer.h
 ..\obj\main.o: ..\SYSTEM\usart\usart.h
 ..\obj\main.o: D:\Users\fl5900u\STM32MDK5\ARM\ARMCC\Bin\..\include\stdio.h
+..\obj\main.o: D:\Users\fl5900u\STM32MDK5\ARM\ARMCC\Bin\..\include\math.h

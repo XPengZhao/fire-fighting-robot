@@ -33,8 +33,8 @@ extern u16	TIM2CH1_CAPTURE_VAL;	//输入捕获值
 			distance=temp *170;
 			distance /= 10000;
 			printf("HIGH:%d cm\r\n",distance);	//打印总的高点平时间
- 			TIM2CH1_CAPTURE_STA=0;			//开启下一次捕获
-			Motor_Run(distance);
+			TIM2CH1_CAPTURE_STA=0;			//开启下一次捕获
+			
  		}
 	}
 }

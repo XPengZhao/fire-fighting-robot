@@ -1,0 +1,48 @@
+#define DIS 10        //预期离墙壁距离
+
+void Direction_Adjust(int 预定){
+    last_dis=预定
+    dis=get_dis();
+    差值=dis-last_dis;
+    if(差值!=0)
+    {
+        if(差值>0)            //左偏,向右调
+        {
+            while(差值>5)     //严重左偏
+            {
+                右轮停，左轮行
+                last_dis=dis;
+                dis=get_dis();
+                差值=dis-last_dis;
+            }
+            while(((dis-预期)>3||(预期-dis)<=3)&&差值>0)
+            {
+                给较大的差动速度；
+                last_dis=dis;
+                dis=get_dis();
+                差值=dis-last_dis;
+            }
+            while(((dis-预期)<=3||(预期-dis)>3)&&差值>0)
+            {
+                给较小的差动速度；
+                last_dis=dis;
+                dis=get_dis();
+                差值=dis-last_dis;
+            }
+        }
+        else if(差值<0)             //右偏，向左调
+        {
+            
+        }
+
+    }
+}
+int main(void){
+    int 预定；
+    定义变量
+    初始化各外设
+    while(1){
+        Direction_Adjust(预定);
+
+    }
+}
