@@ -1,5 +1,5 @@
 ..\obj\main.o: main.c
-..\obj\main.o: ..\HARDWARE\WAVE_RIGHT\wave_right.h
+..\obj\main.o: ..\SYSTEM\delay\delay.h
 ..\obj\main.o: ..\SYSTEM\sys\sys.h
 ..\obj\main.o: ..\USER\stm32f10x.h
 ..\obj\main.o: ..\CORE\core_cm3.h
@@ -30,8 +30,7 @@
 ..\obj\main.o: ..\STM32F10x_FWLib\inc\stm32f10x_usart.h
 ..\obj\main.o: ..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h
 ..\obj\main.o: ..\STM32F10x_FWLib\inc\misc.h
-..\obj\main.o: ..\SYSTEM\delay\delay.h
-..\obj\main.o: ..\HARDWARE\TIMER\timer.h
 ..\obj\main.o: ..\SYSTEM\usart\usart.h
 ..\obj\main.o: D:\Users\fl5900u\STM32MDK5\ARM\ARMCC\Bin\..\include\stdio.h
-..\obj\main.o: ..\HARDWARE\MOTOR\motor.h
+..\obj\main.o: ..\HARDWARE\WAVE_MEASURE\wave_measure.h
+..\obj\main.o: ..\HARDWARE\MOTOR_PWM\Motor_Pwm.h

@@ -365,7 +365,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F10X_HD,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\STM32F10x_FWLib\inc;..\CORE;..\HARDWARE\TIMER;..\HARDWARE\MOTOR;..\HARDWARE\WAVE_RIGHT</IncludePath>
+              <IncludePath>..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\USER;..\STM32F10x_FWLib\inc;..\CORE;..\HARDWARE\MOTOR_PWM;..\HARDWARE\WAVE_MEASURE</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -429,19 +429,14 @@
           <GroupName>HARDWARE</GroupName>
           <Files>
             <File>
-              <FileName>timer.c</FileName>
+              <FileName>Motor_Pwm.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\HARDWARE\TIMER\timer.c</FilePath>
+              <FilePath>..\HARDWARE\MOTOR_PWM\Motor_Pwm.c</FilePath>
             </File>
             <File>
-              <FileName>motor.c</FileName>
+              <FileName>wave_measure.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\HARDWARE\MOTOR\motor.c</FilePath>
-            </File>
-            <File>
-              <FileName>wave_right.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\HARDWARE\WAVE_RIGHT\wave_right.c</FilePath>
+              <FilePath>..\HARDWARE\WAVE_MEASURE\wave_measure.c</FilePath>
             </File>
           </Files>
         </Group>

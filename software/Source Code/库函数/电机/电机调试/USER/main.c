@@ -4,8 +4,9 @@
 int main(void){
 	delay_init();
 	Wheel_Init();
-	delay_ms(1000);
-	//while(1){
-	MotorRight(TIM4,700);
-	//}
+	//delay_ms(1000);
+	while(1){
+	MotorRight(TIM4,650);
+	MotorLeft(TIM4,850);
+	}
 }

@@ -2,6 +2,15 @@
 #include "sys.h"
 #include "Motor_Pwm.h"
 
+/**
+  * ----------------------------------------------------------------------------
+  * 右电机接PD.12，左电机接PD.13
+  * 使用时首先#include "Motor_Pwn.h"
+  * 接着调用初始化函数Wheel_Init();
+  * 通过MotorRight(TIM4,u16 speed);与 MotorLeft(TIM4,u16 speed);调节速度
+  * 占空比 speed/ARR_PWM，在这里是 speed/10000
+  */
+  
 void Wheel_Init(void)
 {
     GPIO_InitTypeDef GPIO_InitStructure;  
