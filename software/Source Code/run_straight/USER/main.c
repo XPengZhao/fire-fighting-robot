@@ -1,4 +1,4 @@
-#define DIS 10
+#define DIS 20
 
 #include "delay.h"
 #include "sys.h"
@@ -24,75 +24,76 @@ int main(void)
     {
         if(difference!=0)
         {
-            if(difference>0)
+            if(difference>0)		//左偏
             {
                 while(difference>3)
                 {
-                    MotorRight(TIM4,720);
-                    MotorLeft(TIM4,850);
+                    MotorRight(TIM4,740);
+                    MotorLeft(TIM4,800);
                     last_distance=distance;
                     distance=Get_Distance();
                     difference=distance-last_distance;
-                    printf("1:%d\r\n",difference);
+                    printf("1:%d\r\n",distance);
                 }
                 while(((distance-DIS)>2||(DIS-distance)<=2)&&difference>0)
+                {
+                    MotorRight(TIM4,730);
+                    MotorLeft(TIM4,800);
+                    last_distance=distance;
+                    distance=Get_Distance();
+                    difference=distance-last_distance;
+                    printf("2:%d\r\n",distance);
+                }
+                while(((distance-DIS)<=2||(DIS-distance)>2)&&difference>0)
                 {
                     MotorRight(TIM4,720);
                     MotorLeft(TIM4,800);
                     last_distance=distance;
                     distance=Get_Distance();
                     difference=distance-last_distance;
-                    printf("2:%d\r\n",difference);
-                }
-                while(((distance-DIS)<=2||(DIS-distance)>2)&&difference>0)
-                {
-                    MotorRight(TIM4,700);
-                    MotorLeft(TIM4,850);
-                    last_distance=distance;
-                    distance=Get_Distance();
-                    difference=distance-last_distance;
-                    printf("3:%d\r\n",difference);
+                    printf("3:%d\r\n",distance);
                 }
             }
-            else if(difference<0)
+            else
             {
                 while(difference<-3)
                 {
-                    MotorRight(TIM4,650);
-                    MotorLeft(TIM4,780);
+                    MotorRight(TIM4,700);
+                    MotorLeft(TIM4,760);
                     last_distance=distance;
                     distance=Get_Distance();
                     difference=distance-last_distance;
-                    printf("4:%d\r\n",difference);
+                    printf("4:%d\r\n",distance);
                 }
                 while(((distance-DIS)<-2||(DIS-distance)>=-2)&&difference<0)
                 {
                     MotorRight(TIM4,700);
+                    MotorLeft(TIM4,770);
+                    last_distance=distance;
+                    distance=Get_Distance();
+                    difference=distance-last_distance;
+                    printf("5:%d\r\n",distance);
+                }
+                while(((distance-DIS)>=-2||(DIS-distance)<-2)&&difference<0)
+                {
+                    MotorRight(TIM4,700);
                     MotorLeft(TIM4,780);
                     last_distance=distance;
                     distance=Get_Distance();
                     difference=distance-last_distance;
-                    printf("5:%d\r\n",difference);
-                }
-                while(((distance-DIS)>=-2||(DIS-distance)<-2)&&difference<0)
-                {
-                    MotorRight(TIM4,650);
-                    MotorLeft(TIM4,800);
-                    last_distance=distance;
-                    distance=Get_Distance();
-                    difference=distance-last_distance;
-                    printf("6:%d\r\n",difference);
+                   printf("6:%d\r\n",distance);
                 }
             }
-			else
-			{
-				 MotorRight(TIM4,700);
-                 MotorLeft(TIM4,800);
-				 last_distance=distance;
-                 distance=Get_Distance();
-                 difference=distance-last_distance;
-				 printf("7:%d\r\n",difference);
-			}
         }
+        else
+        {
+            MotorRight(TIM4,700);
+            MotorLeft(TIM4,800);
+            last_distance=distance;
+            distance=Get_Distance();
+            difference=distance-last_distance;
+            printf("7:%d\r\n",distance);
+        }
+        
     }
 }

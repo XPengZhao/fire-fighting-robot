@@ -8,7 +8,7 @@ void Direction_Adjust(int 预定){
     {
         if(差值>0)            //左偏,向右调
         {
-            while(差值>5)     //严重左偏
+            while(差值>2)     //严重左偏
             {
                 给大差动速度
                 last_dis=dis;
