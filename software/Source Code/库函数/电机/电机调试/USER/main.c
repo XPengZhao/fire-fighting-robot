@@ -7,6 +7,6 @@ int main(void){
 	//delay_ms(1000);
 	while(1){
 	MotorRight(TIM4,700);
-	MotorLeft(TIM4,780);
+	MotorLeft(TIM4,1000);
 	}
 }

@@ -1,4 +1,4 @@
-#define DIS 20
+#define DIS 200
 
 #include "delay.h"
 #include "sys.h"
@@ -26,7 +26,7 @@ int main(void)
         {
             if(difference>0)		//左偏
             {
-                while(difference>3)
+                while(difference>20)
                 {
                     MotorRight(TIM4,740);
                     MotorLeft(TIM4,800);
@@ -35,7 +35,7 @@ int main(void)
                     difference=distance-last_distance;
                     printf("1:%d\r\n",distance);
                 }
-                while(((distance-DIS)>2||(DIS-distance)<=2)&&difference>0)
+                while(((distance-DIS)>20||(DIS-distance)<=20)&&difference>0)
                 {
                     MotorRight(TIM4,730);
                     MotorLeft(TIM4,800);
@@ -44,7 +44,7 @@ int main(void)
                     difference=distance-last_distance;
                     printf("2:%d\r\n",distance);
                 }
-                while(((distance-DIS)<=2||(DIS-distance)>2)&&difference>0)
+                while(((distance-DIS)<=20||(DIS-distance)>20)&&difference>0)
                 {
                     MotorRight(TIM4,720);
                     MotorLeft(TIM4,800);
@@ -56,7 +56,7 @@ int main(void)
             }
             else
             {
-                while(difference<-3)
+                while(difference<-20)
                 {
                     MotorRight(TIM4,700);
                     MotorLeft(TIM4,760);
@@ -65,7 +65,7 @@ int main(void)
                     difference=distance-last_distance;
                     printf("4:%d\r\n",distance);
                 }
-                while(((distance-DIS)<-2||(DIS-distance)>=-2)&&difference<0)
+                while(((distance-DIS)<-20||(DIS-distance)>=-20)&&difference<0)
                 {
                     MotorRight(TIM4,700);
                     MotorLeft(TIM4,770);
@@ -74,7 +74,7 @@ int main(void)
                     difference=distance-last_distance;
                     printf("5:%d\r\n",distance);
                 }
-                while(((distance-DIS)>=-2||(DIS-distance)<-2)&&difference<0)
+                while(((distance-DIS)>=-20||(DIS-distance)<-20)&&difference<0)
                 {
                     MotorRight(TIM4,700);
                     MotorLeft(TIM4,780);

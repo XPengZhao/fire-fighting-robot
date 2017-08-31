@@ -103,21 +103,52 @@ int Get_Distance(void)
 {
     u32 temp=0; 
     int distance=0;
+    int i,j,total=0,n=0;
+    int average[COUNT]={0};
     delay_init();
-	while((TIM3CH3_CAPTURE_STA&0X80)==0)
-	{
-		GPIO_SetBits(GPIOC,GPIO_Pin_13);     //PE.0-->trig 拉低电平 
-		delay_us(20);
-		GPIO_ResetBits(GPIOC,GPIO_Pin_13);	//PE.0-->trig 拉高电平
-	}
-    if(TIM3CH3_CAPTURE_STA&0X80)        //成功捕获到了一次高电平
+    for(i=0;i<COUNT;i++)
     {
-        temp=TIM3CH3_CAPTURE_STA&0X3F;
-        temp*=50000;					//溢出时间总和
-        temp+=TIM3CH3_CAPTURE_VAL;		//得到总的高电平时间
-        distance=temp *170;
-        distance /= 1000;
-        TIM3CH3_CAPTURE_STA=0;			//开启下一次捕获
-     }
-     return distance;
+        while((TIM3CH3_CAPTURE_STA&0X80)==0)
+        {
+            GPIO_SetBits(GPIOC,GPIO_Pin_13);     //PE.0-->trig 拉低电平 
+            delay_us(20);
+            GPIO_ResetBits(GPIOC,GPIO_Pin_13);	//PE.0-->trig 拉高电平
+        }
+        if(TIM3CH3_CAPTURE_STA&0X80)        //成功捕获到了一次高电平
+        {
+            temp=TIM3CH3_CAPTURE_STA&0X3F;
+            temp*=50000;					//溢出时间总和
+            temp+=TIM3CH3_CAPTURE_VAL;		//得到总的高电平时间
+            distance=temp *170;
+            distance /= 1000;
+
+            /*------------------------------滤波部分---------------------------*/
+            if(distance>=20&&distance<2000)
+            {
+                if(n==0)                            //升序排序
+                    average[n++]=distance;
+                else
+                {
+                    if(distance>=average[n-1])
+                        average[n++]=distance;
+                    else
+                    {
+                        for(j=n;j>0;j--)
+                            average[j]=average[j-1];
+                        average[0]=distance;
+                        n++;
+                    }
+                }
+            }
+            /*----------------------------滤波部分----------------------------*/ 
+
+            TIM3CH3_CAPTURE_STA=0;			//开启下一次捕获
+        }
+    }
+
+    /*-----------------------------滤波部分-----------------------------------*/
+    for(i=1;i<n-1;i++)
+        total+=average[i];
+    distance=total/(n-2);
+    return distance;
 }
