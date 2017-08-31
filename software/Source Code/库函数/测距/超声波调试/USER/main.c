@@ -10,7 +10,10 @@ int main(void)
 	delay_init();
     uart_init(9600);
 	Wave_Init();
-	distance=Get_Distance();
-	printf("%d\r\n",distance);
-	delay_ms(3000);
+	while(1)
+	{
+		distance=Get_Distance();
+		printf("%d\r\n",distance);
+		delay_ms(3000);
+	}
 }

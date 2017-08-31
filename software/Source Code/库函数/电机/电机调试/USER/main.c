@@ -6,7 +6,7 @@ int main(void){
 	Wheel_Init();
 	//delay_ms(1000);
 	while(1){
-	MotorRight(TIM4,650);
-	MotorLeft(TIM4,850);
+	MotorRight(TIM4,700);
+	MotorLeft(TIM4,780);
 	}
 }
