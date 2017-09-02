@@ -1,0 +1,37 @@
+#define DIS 200
+#define 采样周期 0.01
+#define TD 0
+#define TI 10000
+
+void pid(void){
+    float Kp=KP,Ti=TI,Td=TD,Ut=0;
+    int 偏差=0，last_dis=0,前后差=0,累计差=0；
+
+    dis=get_dis();
+    偏差=dis-DIS;
+    while(1)
+    {
+        Ut=Kp*偏差+Kp*采样周期*累计差/Ti+Kp*Td*(前后差)/采样周期；
+        if(Ut>0&&Ut<40)
+        {
+            MotorRight(TIM4,700+Ut);
+            MotorLeft(TIM4,800);
+        }
+        else if(Ut<0&&Ut>-40)
+        {
+            MotorLeft(TIM4,800+Ut);
+            MotorRight(TIM4,700+Ut);
+        }
+        else
+        {
+            MotorRight(TIM4,700);
+            MotorLeft(TIM4,800);
+        }
+
+        last_dis=dis;
+        累计差+=dis;
+        dis=get_dis();
+    }
+}
+
+/*----------------------------------------------------------------------------*/

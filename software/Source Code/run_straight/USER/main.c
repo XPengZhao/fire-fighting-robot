@@ -94,6 +94,5 @@ int main(void)
             difference=distance-last_distance;
             printf("7:%d\r\n",distance);
         }
-        
     }
 }

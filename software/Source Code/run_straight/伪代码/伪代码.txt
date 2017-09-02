@@ -15,14 +15,14 @@ void Direction_Adjust(int 预定){
                 dis=get_dis();
                 差值=dis-last_dis;
             }
-            while(((dis-预期)>3||(预期-dis)<=3)&&差值>0)
+            while(((dis-预期)>20||(预期-dis)<=20)&&差值>0)
             {
                 给较大的差动速度；
                 last_dis=dis;
                 dis=get_dis();
                 差值=dis-last_dis;
             }
-            while(((dis-预期)<=3||(预期-dis)>3)&&差值>0)
+            while(((dis-预期)<=20||(预期-dis)>20)&&差值>0)
             {
                 给较小的差动速度；
                 last_dis=dis;
@@ -32,21 +32,21 @@ void Direction_Adjust(int 预定){
         }
         else if(差值<0)             //右偏，向左调
         {
-            while(差值<-5)     //严重右偏
+            while(差值<-20)     //严重右偏
             {
                 左轮慢，右轮快的多
                 last_dis=dis;
                 dis=get_dis();
                 差值=dis-last_dis;
             }
-            while(((dis-预期)<-3||(预期-dis)>=-3)&&差值<0)
+            while(((dis-预期)<-20||(预期-dis)>=-20)&&差值<0)
             {
                 给较大的差动速度；
                 last_dis=dis;
                 dis=get_dis();
                 差值=dis-last_dis;
             }
-             while(((dis-预期)>=-3||(预期-dis)<-3)&&差值<0)
+             while(((dis-预期)>=-20||(预期-dis)<-20)&&差值<0)
             {
                 给较小的差动速度；
                 last_dis=dis;
@@ -55,6 +55,13 @@ void Direction_Adjust(int 预定){
             }
         }
 
+    }
+    else
+    {
+        直行；
+        last_dis=dis;
+        dis=get_dis();
+        差值=dis-last_dis;
     }
 }
 int main(void){
