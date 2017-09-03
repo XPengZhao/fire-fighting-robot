@@ -2,7 +2,7 @@
 #define TIME 0.01
 #define TD 0
 #define TI 10000
-#define KP 30
+#define KP 17
 
 #include "delay.h"
 #include "sys.h"
@@ -14,13 +14,16 @@ int main(void)
 { 
 	float Kp=KP,Ti=TI,Td=TD,Ut=0;
 	int difference=0,d_difference=0,i_difference=0;
-	int distance=0,last_dis=0;
+	int distance=0,i=0;
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);// 设置中断优先级分组2
 	delay_init();                   //延时函数初始化
 	uart_init(9600);                //9600
 	Wheel_Init();
 	Wave_Init();
-	delay_ms(1000);
+	for(i=0;i<3;i++)
+	{
+		delay_ms(1000);
+	}
 	MotorLeft(TIM4,800);
 	MotorRight(TIM4,700);
 
@@ -35,30 +38,30 @@ int main(void)
 		else if(d_difference<-20)
 			d_difference=-20;
 		Ut=Kp*d_difference;
-		if(Ut>30&&Ut<Kp*10)
+		if(Ut>30&&Ut<Kp*8)
 		{
 			MotorRight(TIM4,720);
 			MotorLeft(TIM4,800);
 			delay_ms((int)Ut);
 		}
-		else if(Ut<-30&&Ut>(-Kp*10))
+		else if(Ut<-30&&Ut>(-Kp*8))
 		{
 			MotorRight(TIM4,700);
 			MotorLeft(TIM4,780);
 			Ut=-Ut;
 			delay_ms((int)Ut);
 		}
-		else if(Ut>Kp*10)
+		else if(Ut>Kp*8)
 		{
-			MotorRight(TIM4,725);
+			MotorRight(TIM4,730);
 			MotorLeft(TIM4,800);
 			delay_ms((int)Ut);
 		}
-		else if(Ut<(-Kp*10))
+		else if(Ut<(-Kp*8))
 		{
 			{
 			MotorRight(TIM4,700);
-			MotorLeft(TIM4,775);
+			MotorLeft(TIM4,770);
 			Ut=-Ut;
 			delay_ms((int)Ut);
 		}
