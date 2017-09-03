@@ -1,7 +1,7 @@
 --cpu Cortex-M3
-"..\obj\main.o"
 "..\obj\stm32f10x_it.o"
 "..\obj\system_stm32f10x.o"
+"..\obj\main.o"
 "..\obj\motor_pwm.o"
 "..\obj\wave_measure.o"
 "..\obj\delay.o"
