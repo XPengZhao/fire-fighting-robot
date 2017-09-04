@@ -1,5 +1,4 @@
 #define KP 30
-#define Ki 20
 
 #include "delay.h"
 #include "sys.h"
@@ -10,7 +9,7 @@
 int main(void)
 { 
 	int Kp=KP;
-	int angle=0,last_angle=0,total_angle=0;
+	int angle=0,last_angle=0;
 	int distance=0,i=0,Ut=0;
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);// 设置中断优先级分组2
 	delay_init();                   //延时函数初始化
@@ -37,34 +36,28 @@ int main(void)
 			angle=15;
 		else if(angle<-15)
 			angle=-15;
-		Ut=Kp*angle;
-		if(last_angle<3&&last_angle>-3)				 //滞后滤波
+		
+		if(last_angle<3&&last_angle>-2)				 //滞后滤波
 		{
 			if(angle>=0)
 				angle=angle/2+last_angle;  
 			else
 				angle=angle/2+last_angle;
-			
-			if(total_angle<4&&total_angle>-4)
-				total_angle+=angle;
-			else
-				total_angle=0;
-			
-			Ut=Kp*angle+Ki*total_angle;	
 		}
 		/*----------------------------------*/
+		Ut=Kp*angle;
 		printf("%d\t",angle);
 		
 		if(Ut>Kp)
 		{
 			MotorRight(TIM4,720);
-			MotorLeft(TIM4,800);
+			MotorLeft(TIM4,796);
 			delay_ms((int)Ut);
 		}
 		else if(Ut<-Kp)
 		{
 			MotorRight(TIM4,700);
-			MotorLeft(TIM4,780);
+			MotorLeft(TIM4,776);
 			Ut=-Ut;
 			delay_ms((int)Ut);
 		}
