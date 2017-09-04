@@ -14,6 +14,6 @@ int main(void)
 	{
 		distance=Get_Distance();
 		printf("%d\r\n",distance);
-		delay_ms(50);
+		delay_ms(500);
 	}
 }

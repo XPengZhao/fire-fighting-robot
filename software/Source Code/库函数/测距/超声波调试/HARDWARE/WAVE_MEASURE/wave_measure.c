@@ -147,8 +147,8 @@ int Get_Distance(void)
     }
 
     /*-----------------------------滤波部分-----------------------------------*/
-    for(i=1;i<n-1;i++)
+    for(i=3;i<n-3;i++)
         total+=average[i];
-    distance=total/(n-2);
+    distance=total/(n-6);
     return distance;
 }

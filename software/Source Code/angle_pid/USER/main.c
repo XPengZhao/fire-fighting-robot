@@ -1,8 +1,5 @@
-#define DIS 200
-#define TIME 0.01
-#define TD 0
-#define TI 10000
-#define KP 17
+#define KP 30
+#define Ki 20
 
 #include "delay.h"
 #include "sys.h"
@@ -12,9 +9,9 @@
 
 int main(void)
 { 
-	float Kp=KP,Ti=TI,Td=TD,Ut=0;
-	int difference=0,d_difference=0,i_difference=0;
-	int distance=0,i=0;
+	int Kp=KP;
+	int angle=0,last_angle=0,total_angle=0;
+	int distance=0,i=0,Ut=0;
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);// 设置中断优先级分组2
 	delay_init();                   //延时函数初始化
 	uart_init(9600);                //9600
@@ -26,52 +23,64 @@ int main(void)
 	}
 	MotorLeft(TIM4,800);
 	MotorRight(TIM4,700);
+	
+	distance=Get_Distance();
+	delay_ms(250);
+	angle=Get_Distance()-distance;
+	printf("%d\r\n",angle);
+	last_angle=angle;
 
 	while(1)
 	{
-		distance=Get_Distance();
-		delay_ms(200);
-		d_difference=Get_Distance()-distance;
-		printf("%d\r\n",d_difference);
-		if(d_difference>20)
-			d_difference=20;
-		else if(d_difference<-20)
-			d_difference=-20;
-		Ut=Kp*d_difference;
-		if(Ut>30&&Ut<Kp*8)
+		/*----------对angle进行滤波---------*/
+		if(angle>15)
+			angle=15;
+		else if(angle<-15)
+			angle=-15;
+		Ut=Kp*angle;
+		if(last_angle<3&&last_angle>-3)				 //滞后滤波
+		{
+			if(angle>=0)
+				angle=angle/2+last_angle;  
+			else
+				angle=angle/2+last_angle;
+			
+			if(total_angle<4&&total_angle>-4)
+				total_angle+=angle;
+			else
+				total_angle=0;
+			
+			Ut=Kp*angle+Ki*total_angle;	
+		}
+		/*----------------------------------*/
+		printf("%d\t",angle);
+		
+		if(Ut>Kp)
 		{
 			MotorRight(TIM4,720);
 			MotorLeft(TIM4,800);
 			delay_ms((int)Ut);
 		}
-		else if(Ut<-30&&Ut>(-Kp*8))
+		else if(Ut<-Kp)
 		{
 			MotorRight(TIM4,700);
 			MotorLeft(TIM4,780);
 			Ut=-Ut;
 			delay_ms((int)Ut);
 		}
-		else if(Ut>Kp*8)
-		{
-			MotorRight(TIM4,730);
-			MotorLeft(TIM4,800);
-			delay_ms((int)Ut);
-		}
-		else if(Ut<(-Kp*8))
-		{
-			{
-			MotorRight(TIM4,700);
-			MotorLeft(TIM4,770);
-			Ut=-Ut;
-			delay_ms((int)Ut);
-		}
-		}
 		else
 		{
 			MotorRight(TIM4,700);
-			MotorLeft(TIM4,800);
+			MotorLeft(TIM4,796);
 		}
-		MotorLeft(TIM4,800);
+		MotorLeft(TIM4,796);
 		MotorRight(TIM4,700);
+		
+		last_angle=angle;
+		distance=Get_Distance();
+		delay_ms(250);
+		angle=Get_Distance()-distance;
+		printf("%d\r\n",angle);
+		
 	}
 }
