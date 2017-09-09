@@ -10,10 +10,11 @@ int main(void)
 { 
 	int Kp=KP;
 	int angle=0,last_angle=0;
-	int distance=0,i=0,Ut=0;
+    int distance=0,i=0,Ut=0;
+    int count=0;
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);// 设置中断优先级分组2
-	delay_init();                   //延时函数初始化
-	uart_init(9600);                //9600
+	delay_init();                                  //延时函数初始化
+	uart_init(9600);
 	Wheel_Init();
 	Wave_Init();
 	for(i=0;i<3;i++)
@@ -32,12 +33,12 @@ int main(void)
 	while(1)
 	{
 		/*----------对angle进行滤波---------*/
-		if(angle>15)
+		if(angle>15)                                //限幅
 			angle=15;
 		else if(angle<-15)
 			angle=-15;
 		
-		if(last_angle<3&&last_angle>-2)				 //滞后滤波
+		if(last_angle<2&&last_angle>-2)				 //滞后滤波
 		{
 			if(angle>=0)
 				angle=angle/2+last_angle;  
@@ -51,22 +52,22 @@ int main(void)
 		if(Ut>Kp)
 		{
 			MotorRight(TIM4,720);
-			MotorLeft(TIM4,796);
+			MotorLeft(TIM4,800);
 			delay_ms((int)Ut);
 		}
 		else if(Ut<-Kp)
 		{
 			MotorRight(TIM4,700);
-			MotorLeft(TIM4,776);
+			MotorLeft(TIM4,780);
 			Ut=-Ut;
 			delay_ms((int)Ut);
 		}
 		else
 		{
 			MotorRight(TIM4,700);
-			MotorLeft(TIM4,796);
+			MotorLeft(TIM4,800);
 		}
-		MotorLeft(TIM4,796);
+		MotorLeft(TIM4,800);
 		MotorRight(TIM4,700);
 		
 		last_angle=angle;

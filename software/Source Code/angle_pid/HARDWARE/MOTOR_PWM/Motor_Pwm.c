@@ -4,7 +4,8 @@
 
 /**
   * ----------------------------------------------------------------------------
-  * 右电机接PD.12，左电机接PD.13
+  * 右电机接PD.12，左电机接PD.13(从PB.5,PB.6重映射)
+  * 通过TIM4_CH1与TIM4_CH2输出PWM波  
   * 使用时首先#include "Motor_Pwn.h"
   * 接着调用初始化函数Wheel_Init();
   * 通过MotorRight(TIM4,u16 speed);与 MotorLeft(TIM4,u16 speed);调节速度
@@ -41,14 +42,14 @@ void Wheel_Init(void)
     TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High; //输出极性:TIM输出比较极性高  
 
     TIM_OC1Init(TIM4, &TIM_OCInitStructure);  //根据TIM_OCInitStruct中指定的参数初始化外设TIMx   
-    TIM_OC1PreloadConfig(TIM4, TIM_OCPreload_Enable);  //CH3预装载使能     
+    TIM_OC1PreloadConfig(TIM4, TIM_OCPreload_Enable);  //CH1预装载使能     
   TIM_OC2Init(TIM4, &TIM_OCInitStructure);  //根据TIM_OCInitStruct中指定的参数初始化外设TIMx   
-    TIM_OC2PreloadConfig(TIM4, TIM_OCPreload_Enable);  //CH4预装载使能  
+    TIM_OC2PreloadConfig(TIM4, TIM_OCPreload_Enable);  //CH2预装载使能  
  
       
       
     TIM_ARRPreloadConfig(TIM4, ENABLE); //使能TIMx在ARR上的预装载寄存器  
     TIM_CtrlPWMOutputs(TIM4,ENABLE);    //MOE 主输出使能  
-    TIM_Cmd(TIM4, ENABLE);  //使能TIM2  
+    TIM_Cmd(TIM4, ENABLE);  			//使能TIM4 
 
 }
