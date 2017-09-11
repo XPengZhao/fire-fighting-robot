@@ -38,12 +38,12 @@ int main(void)
 		else if(angle<-15)
 			angle=-15;
 		
-		if(last_angle<2&&last_angle>-2)				 //滞后滤波
+		if(last_angle<2&&last_angle>-3)				 //滞后滤波
 		{
-			if(angle>=0)
-				angle=angle/2+last_angle;  
+			if(angle<=0)
+				angle=angle/3+last_angle;  
 			else
-				angle=angle/2+last_angle;
+				angle=angle/3+last_angle;
 		}
 		/*----------------------------------*/
 		Ut=Kp*angle;
@@ -51,24 +51,24 @@ int main(void)
 		
 		if(Ut>Kp)
 		{
-			MotorRight(TIM4,720);
+			MotorRight(TIM4,724);
 			MotorLeft(TIM4,800);
 			delay_ms((int)Ut);
 		}
 		else if(Ut<-Kp)
 		{
-			MotorRight(TIM4,700);
+			MotorRight(TIM4,704);
 			MotorLeft(TIM4,780);
 			Ut=-Ut;
 			delay_ms((int)Ut);
 		}
 		else
 		{
-			MotorRight(TIM4,700);
+			MotorRight(TIM4,704);
 			MotorLeft(TIM4,800);
 		}
 		MotorLeft(TIM4,800);
-		MotorRight(TIM4,700);
+		MotorRight(TIM4,704);
 		
 		last_angle=angle;
 		distance=Get_Distance();
