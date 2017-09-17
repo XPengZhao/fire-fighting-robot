@@ -49,7 +49,7 @@ void Wave_Init(void){
     TIM3_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;	//上升沿捕获
     TIM3_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI; //映射到TI2上
     TIM3_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;	 //配置输入分频,不分频 
-    TIM3_ICInitStructure.TIM_ICFilter = 0x3;//IC1F=0011 配置输入滤波器进行滤波
+    TIM3_ICInitStructure.TIM_ICFilter = 0x3;
     TIM_ICInit(TIM3, &TIM3_ICInitStructure);
 
     /*------------------------------------------------------------------------*/
@@ -103,52 +103,21 @@ int Get_Distance(void)
 {
     u32 temp=0; 
     int distance=0;
-    int i,j,total=0,n=0;
-    int average[COUNT]={0};
     delay_init();
-    for(i=0;i<COUNT;i++)
+	while((TIM3CH3_CAPTURE_STA&0X80)==0)
+	{
+		GPIO_SetBits(GPIOC,GPIO_Pin_13);     //PE.0-->trig 拉低电平 
+		delay_us(20);
+		GPIO_ResetBits(GPIOC,GPIO_Pin_13);	//PE.0-->trig 拉高电平
+	}
+    if(TIM3CH3_CAPTURE_STA&0X80)        //成功捕获到了一次高电平
     {
-        while((TIM3CH3_CAPTURE_STA&0X80)==0)
-        {
-            GPIO_SetBits(GPIOC,GPIO_Pin_13);     //PE.0-->trig 拉低电平 
-            delay_us(20);
-            GPIO_ResetBits(GPIOC,GPIO_Pin_13);	//PE.0-->trig 拉高电平
-        }
-        if(TIM3CH3_CAPTURE_STA&0X80)        //成功捕获到了一次高电平
-        {
-            temp=TIM3CH3_CAPTURE_STA&0X3F;
-            temp*=50000;					//溢出时间总和
-            temp+=TIM3CH3_CAPTURE_VAL;		//得到总的高电平时间
-            distance=temp *170;
-            distance /= 1000;
-
-            /*------------------------------滤波部分---------------------------*/
-            if(distance>=20&&distance<2000)
-            {
-                if(n==0)                            //升序排序
-                    average[n++]=distance;
-                else
-                {
-                    if(distance>=average[n-1])
-                        average[n++]=distance;
-                    else
-                    {
-                        for(j=n;j>0;j--)
-                            average[j]=average[j-1];
-                        average[0]=distance;
-                        n++;
-                    }
-                }
-            }
-            /*----------------------------滤波部分----------------------------*/ 
-
-            TIM3CH3_CAPTURE_STA=0;			//开启下一次捕获
-        }
-    }
-
-    /*-----------------------------滤波部分-----------------------------------*/
-    for(i=2;i<n-2;i++)
-        total+=average[i];
-    distance=total/(n-4);
-    return distance;
+        temp=TIM3CH3_CAPTURE_STA&0X3F;
+        temp*=50000;					//溢出时间总和
+        temp+=TIM3CH3_CAPTURE_VAL;		//得到总的高电平时间
+        distance=temp *170;
+        distance /= 10000;
+        TIM3CH3_CAPTURE_STA=0;			//开启下一次捕获
+     }
+     return distance;
 }

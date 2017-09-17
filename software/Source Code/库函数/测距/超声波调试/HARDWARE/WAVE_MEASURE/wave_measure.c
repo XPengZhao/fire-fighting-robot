@@ -13,6 +13,9 @@
   * 最后调用 Get_front();即可得出距离
   */
 
+
+ Distance distance;
+
  u8  TIM3CH3_CAPTURE_STA=0; //输入捕获状态
  u16 TIM3CH3_CAPTURE_VAL;   //输入捕获值
  u8  TIM2CH2_CAPTURE_STA=0; //输入捕获状态
@@ -20,9 +23,7 @@
  u8  TIM5CH3_CAPTURE_STA=0; //输入捕获状态
  u16 TIM5CH3_CAPTURE_VAL;   //输入捕获值
 
- TIM_ICInitTypeDef  TIM2_ICInitStructure;
- TIM_ICInitTypeDef  TIM3_ICInitStructure;
- TIM_ICInitTypeDef  TIM5_ICInitStructure;
+
 
 //定时器通道输入捕获配置
 void Wave_Init(void)
@@ -30,6 +31,7 @@ void Wave_Init(void)
     GPIO_InitTypeDef GPIO_InitStructure;
     TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
     NVIC_InitTypeDef NVIC_InitStructure;
+    TIM_ICInitTypeDef  TIM_ICInitStructure;
 
     //使能各个时钟
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);    //使能TIM2时钟
@@ -39,103 +41,80 @@ void Wave_Init(void)
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM5, ENABLE);    //使能TIM3时钟
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);   //使能GPIOB时钟
 
+    /*-------------------------初始化trig端口---------------------------------
+     * PC.11-->front    PC.12-->right   PC.13-->left
+     */
     GPIO_InitStructure.GPIO_Pin  = GPIO_Pin_11|GPIO_Pin_12|GPIO_Pin_13;
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_Init(GPIOC,&GPIO_InitStructure);
     GPIO_ResetBits(GPIOC,GPIO_Pin_11|GPIO_Pin_12|GPIO_Pin_13);
-	
-    /*---------------------------初始化前超声波---------------------------------*/
-    GPIO_InitStructure.GPIO_Pin  = GPIO_Pin_1;              //PA.1 清除之前设置  
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;           //PA.1 上拉输入
-    GPIO_Init(GPIOA, &GPIO_InitStructure);                  //根据设定值初始化PA.1
-    GPIO_ResetBits(GPIOA,GPIO_Pin_1);                       //PA.1 下拉电位
+    ////
 
+    /*---------------------------初始化echo端口--------------------------------
+     * PA.1 front   PA.2 left   PB.0 right
+     */
+    GPIO_InitStructure.GPIO_Pin  = GPIO_Pin_1|GPIO_Pin_2;
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;     //PA.1与PA.2 上拉输入
+    GPIO_Init(GPIOA, &GPIO_InitStructure);            //根据设定值初始化PA.1与PA.2
+    GPIO_ResetBits(GPIOA,GPIO_Pin_1|GPIO_Pin_2);      //PA.1与PA.2 下拉电位
+
+    GPIO_InitStructure.GPIO_Pin  = GPIO_Pin_0;              //PB.0 清除之前设置  
+    GPIO_Init(GPIOB, &GPIO_InitStructure);                  //根据设定值初始化PB.0
+    GPIO_ResetBits(GPIOB,GPIO_Pin_0);                       //PB.0 下拉电位
+    ////
+
+    /*---------------------------配置定时器时基参数-------------------------------
+     * TIM2-->front   TIM3-->right    TIM5-->left
+     */
     TIM_TimeBaseStructure.TIM_Period = ARR;                 //设定计数器自动重装值
     TIM_TimeBaseStructure.TIM_Prescaler =PSC;               //预分频器
     TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1; //设置时钟分割:TDTS = Tck_tim
-    TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;  //TIM向上计数模式
+    TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up; //TIM向上计数模式
     TIM_TimeBaseInit(TIM2, &TIM_TimeBaseStructure); //根据TIM_TimeBaseInitStruct中指定的参数初始化TIMx的时间基数单位
+    TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure);
+    TIM_TimeBaseInit(TIM5, &TIM_TimeBaseStructure);
+    ////
 
-    TIM2_ICInitStructure.TIM_Channel = TIM_Channel_2;
-    TIM2_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;    //上升沿捕获
-    TIM2_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI; //映射到TI2
-    TIM2_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1; //配置输入分频,不分频 
-    TIM2_ICInitStructure.TIM_ICFilter = 0x3; //IC1F=0011 配置输入滤波器进行滤波
-    TIM_ICInit(TIM2, &TIM2_ICInitStructure);
+    /*--------------------------配置定时器捕获参数--------------------------------
+     * TIM2-->front   TIM3-->right    TIM5-->left
+     */
+    TIM_ICInitStructure.TIM_Channel = TIM_Channel_2;
+    TIM_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;    //上升沿捕获
+    TIM_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI; //直接映射
+    TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1; //配置输入分频,不分频 
+    TIM_ICInitStructure.TIM_ICFilter = 0x3; //IC1F=0011 配置输入滤波器进行滤波
+    TIM_ICInit(TIM2, &TIM_ICInitStructure);
+    TIM_ICInitStructure.TIM_Channel = TIM_Channel_3;
+    TIM_ICInit(TIM3, &TIM_ICInitStructure);
+    TIM_ICInitStructure.TIM_Channel = TIM_Channel_3;
+    TIM_ICInit(TIM5, &TIM_ICInitStructure);
+    ////
 
-    //中断分组初始化
+    /*---------------------------设置中断分组------------------------------------
+     * TIM2-->front   TIM3-->right    TIM5-->left
+     */
     NVIC_InitStructure.NVIC_IRQChannel = TIM2_IRQn;  //TIM2中断
-    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;  //先占优先级2级
-    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 2;  //从优先级0级
-    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; //IRQ通道被使能
-    NVIC_Init(&NVIC_InitStructure);  //根据NVIC_InitStruct中指定的参数初始化外设NVIC寄存器 
-
-    TIM_ITConfig(TIM2,TIM_IT_Update|TIM_IT_CC2,ENABLE);//允许更新中断 ,允许CC1IE捕获中断
-    TIM_Cmd(TIM2,ENABLE);    //使能定时器3
-
-    /*---------------------------初始化右超声波---------------------------------*/
-    GPIO_InitStructure.GPIO_Pin  = GPIO_Pin_0;              //PB.0 清除之前设置  
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;           //PB.0 上拉输入
-    GPIO_Init(GPIOB, &GPIO_InitStructure);                  //根据设定值初始化PB.0
-    GPIO_ResetBits(GPIOB,GPIO_Pin_0);                       //PB.0 下拉电位
-    
-    //初始化定时器3 TIM3
-    TIM_TimeBaseStructure.TIM_Period = ARR;                 //设定计数器自动重装值 
-    TIM_TimeBaseStructure.TIM_Prescaler =PSC;               //预分频器
-    TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1; //设置时钟分割:TDTS = Tck_tim
-    TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;  //TIM向上计数模式
-    TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure); //根据TIM_TimeBaseInitStruct中指定的参数初始化TIMx的时间基数单位
-
-    //初始化TIM3输入捕获参数
-    TIM3_ICInitStructure.TIM_Channel = TIM_Channel_3;
-    TIM3_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;	//上升沿捕获
-    TIM3_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI; //映射到TI3
-    TIM3_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1; //配置输入分频,不分频 
-    TIM3_ICInitStructure.TIM_ICFilter = 0x3; //IC1F=0011 配置输入滤波器进行滤波
-    TIM_ICInit(TIM3, &TIM3_ICInitStructure);
-    
-    //中断分组初始化
-    NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;  //TIM3中断
-    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;  //先占优先级2级
-    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;  //从优先级0级
-    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; //IRQ通道被使能
-    NVIC_Init(&NVIC_InitStructure);  //根据NVIC_InitStruct中指定的参数初始化外设NVIC寄存器
-
-    TIM_ITConfig(TIM3,TIM_IT_Update|TIM_IT_CC3,ENABLE);//允许更新中断 ,允许CC1IE捕获中断	
-    TIM_Cmd(TIM3,ENABLE);   //使能定时器3
-
-    /*---------------------------初始化左超声波---------------------------------*/
-    GPIO_InitStructure.GPIO_Pin  = GPIO_Pin_2;              //PA.2清除之前设置
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;           //PA.2上拉输入
-    GPIO_Init(GPIOA, &GPIO_InitStructure);                  //根据设定值初始化PA.2
-    GPIO_ResetBits(GPIOA,GPIO_Pin_2);                       //PA.2下拉电位
-
-    TIM_TimeBaseStructure.TIM_Period = ARR; 				//设定计数器自动重装值 
-    TIM_TimeBaseStructure.TIM_Prescaler =PSC; 				//预分频器   
-    TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1; //设置时钟分割:TDTS = Tck_tim
-    TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;  //TIM向上计数模式
-    TIM_TimeBaseInit(TIM5, &TIM_TimeBaseStructure); //根据TIM_TimeBaseInitStruct中指定的参数初始化TIMx的时间基数单位
-    
-    TIM5_ICInitStructure.TIM_Channel = TIM_Channel_3;
-    TIM5_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising; //上升沿捕获
-    TIM5_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI; //映射到TI2
-    TIM5_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1; //配置输入分频,不分频 
-    TIM5_ICInitStructure.TIM_ICFilter = 0x3;
-    TIM_ICInit(TIM5, &TIM5_ICInitStructure);
-
-    //中断分组初始化
-    NVIC_InitStructure.NVIC_IRQChannel = TIM5_IRQn;  //TIM5中断
     NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;  //先占优先级2级
     NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;  //从优先级0级
     NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; //IRQ通道被使能
     NVIC_Init(&NVIC_InitStructure);  //根据NVIC_InitStruct中指定的参数初始化外设NVIC寄存器 
+    NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;  //TIM3中断
+    NVIC_Init(&NVIC_InitStructure);
+    NVIC_InitStructure.NVIC_IRQChannel = TIM5_IRQn;  //TIM3中断
+    NVIC_Init(&NVIC_InitStructure);
+    ////
 
-    TIM_ITConfig(TIM5,TIM_IT_Update|TIM_IT_CC3,ENABLE);//允许更新中断 ,允许CC1IE捕获中断	
-    
-    TIM_Cmd(TIM5,ENABLE); 	   //使能定时器3
+    /*---------------------------使能中断与定时器---------------------------------
+     * TIM2_CH2-->front   TIM3_CH3-->right    TIM5_CH3-->left
+     */
+    TIM_ITConfig(TIM2,TIM_IT_Update|TIM_IT_CC2,ENABLE);//允许更新中断 ,允许CC1IE捕获中断
+    TIM_Cmd(TIM2,ENABLE);    //使能定时器3
+    TIM_ITConfig(TIM3,TIM_IT_Update|TIM_IT_CC3,ENABLE);//允许更新中断 ,允许CC1IE捕获中断
+    TIM_Cmd(TIM3,ENABLE);    //使能定时器3
+    TIM_ITConfig(TIM5,TIM_IT_Update|TIM_IT_CC3,ENABLE);//允许更新中断 ,允许CC1IE捕获中断
+    TIM_Cmd(TIM5,ENABLE);    //使能定时器3
 }
-
 
 //定时器2中断服务程序	 
 void TIM2_IRQHandler(void)
@@ -371,5 +350,8 @@ void Get_Distance(void)    //返回超声波测得距离
     for(k=1;k<l-1;k++)
         total2+=average2[k];
     left=total2/(l-2);
-    printf("%d %d %d\n",front,left,right);
+    distance.front=front;
+	distance.right=right;
+	distance.left=left;
+
 }

@@ -3,6 +3,8 @@
 #include "usart.h"
 #include "delay.h"
 
+extern Distance distance;
+
 int main(void)
 {	
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
@@ -13,5 +15,6 @@ int main(void)
 	{
 		Get_Distance();
 		delay_ms(500);
+		printf("%d\n",distance.right);
 	}
 }
