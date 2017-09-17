@@ -120,10 +120,10 @@ int Get_Distance(void)
             temp*=50000;					//溢出时间总和
             temp+=TIM3CH3_CAPTURE_VAL;		//得到总的高电平时间
             distance=temp *170;
-            distance /= 10000;
+            distance /= 1000;
 
             /*------------------------------滤波部分---------------------------*/
-            if(distance>=2&&distance<200)
+            if(distance>=20&&distance<2000)
             {
                 if(n==0)                            //升序排序
                     average[n++]=distance;
@@ -147,8 +147,8 @@ int Get_Distance(void)
     }
 
     /*-----------------------------滤波部分-----------------------------------*/
-    for(i=1;i<n-1;i++)
+    for(i=3;i<n-3;i++)
         total+=average[i];
-    distance=total/(n-2);
+    distance=total/(n-6);
     return distance;
 }

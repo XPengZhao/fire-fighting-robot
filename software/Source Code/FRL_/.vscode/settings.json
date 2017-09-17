@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "wave_right.h": "c"
+        "wave_right.h": "c",
+        "sys.h": "c"
     }
 }

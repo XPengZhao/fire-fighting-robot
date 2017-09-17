@@ -49,7 +49,7 @@ void Wave_Init(void){
     TIM3_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;	//上升沿捕获
     TIM3_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI; //映射到TI2上
     TIM3_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;	 //配置输入分频,不分频 
-    TIM3_ICInitStructure.TIM_ICFilter = 0x3;//IC1F=0011 配置输入滤波器进行滤波
+    TIM3_ICInitStructure.TIM_ICFilter = 0x3;
     TIM_ICInit(TIM3, &TIM3_ICInitStructure);
 
     /*------------------------------------------------------------------------*/

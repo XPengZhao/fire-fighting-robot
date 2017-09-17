@@ -5,15 +5,13 @@
 
 int main(void)
 {	
-	int distance;
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
 	delay_init();
     uart_init(9600);
 	Wave_Init();
 	while(1)
 	{
-		distance=Get_Distance();
-		printf("%d\r\n",distance);
+		Get_Distance();
 		delay_ms(500);
 	}
 }

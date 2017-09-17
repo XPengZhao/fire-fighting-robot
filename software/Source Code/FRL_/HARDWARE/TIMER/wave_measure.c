@@ -37,14 +37,8 @@ void Wave_Init(void)
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);    //使能TIM3时钟
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);   //使能GPIOB时钟
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM5, ENABLE);    //使能TIM3时钟
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC, ENABLE);   //使能GPIOB时钟
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);   //使能GPIOB时钟
 
-    GPIO_InitStructure.GPIO_Pin  = GPIO_Pin_11|GPIO_Pin_12|GPIO_Pin_13;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-    GPIO_Init(GPIOC,&GPIO_InitStructure);
-    GPIO_ResetBits(GPIOC,GPIO_Pin_11|GPIO_Pin_12|GPIO_Pin_13);
-	
     /*---------------------------初始化前超声波---------------------------------*/
     GPIO_InitStructure.GPIO_Pin  = GPIO_Pin_1;              //PA.1 清除之前设置  
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;           //PA.1 上拉输入
@@ -246,28 +240,24 @@ void TIM5_IRQHandler(void)
 
 void Get_Distance(void)    //返回超声波测得距离
 {
-	
     u32 temp1=0,temp2=0,temp3=0; 
     int front=0,right=0,left=0;
     int i=0,j=0,k=0;
     int l=0,m=0,n=0;
     int total0=0,total1=0,total2=0;
     int average0[COUNT]={0},average1[COUNT]={0},average2[COUNT]={0};
-	uart_init(9600);
-	
     for(i=0;i<COUNT;i++)
     {
-        while((TIM3CH3_CAPTURE_STA&0X80)==0||(TIM2CH2_CAPTURE_STA&0X80)==0||(TIM5CH3_CAPTURE_STA&0X80)==0)
+        while((TIM3CH3_CAPTURE_STA&0X80)==0||(TIM2CH2_CAPTURE_STA&0X80)==0||(TIM2CH2_CAPTURE_STA&0X80)==0)
         {
             GPIO_SetBits(GPIOC,GPIO_Pin_11);     //trig 拉高电平 
             GPIO_SetBits(GPIOC,GPIO_Pin_12);     
             GPIO_SetBits(GPIOC,GPIO_Pin_13); 
-            delay_us(20);
+            delay_us(10);
             GPIO_ResetBits(GPIOC,GPIO_Pin_11);  //trig 拉低电平
             GPIO_ResetBits(GPIOC,GPIO_Pin_12);  
             GPIO_ResetBits(GPIOC,GPIO_Pin_13);
-			delay_ms(20);
-		}
+        }
         if(TIM2CH2_CAPTURE_STA&0X80)        //成功捕获到了一次高电平
         {
             temp1=TIM2CH2_CAPTURE_STA&0X3F;
@@ -290,7 +280,7 @@ void Get_Distance(void)    //返回超声波测得距离
                     {
                         for(j=m;j>0;j--)
                             average0[j]=average0[j-1];
-                        average0[0]=front;
+                        average10[0]=front;
                         m++;
                     }
                 }
@@ -371,5 +361,5 @@ void Get_Distance(void)    //返回超声波测得距离
     for(k=1;k<l-1;k++)
         total2+=average2[k];
     left=total2/(l-2);
-    printf("%d %d %d\n",front,left,right);
+    printf("%d %d %d",front,left,right);
 }
