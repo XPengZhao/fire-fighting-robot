@@ -3,7 +3,7 @@
 
 #define ARR 49999
 #define PSC 71
-#define COUNT 5
+#define COUNT 6
 
 #include "sys.h"
 

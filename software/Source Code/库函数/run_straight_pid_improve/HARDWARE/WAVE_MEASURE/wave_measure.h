@@ -1,11 +1,20 @@
 #ifndef __WAVE_MEASURE_H
 #define __WAVE_MEASURE_H
 
-#define ARR_WAVE 49999
-#define PSC_WAVE 71
+#define ARR 49999
+#define PSC 71
+#define COUNT 5
+
 #include "sys.h"
 
+typedef struct
+ {
+     int front;
+     int right;
+     int left;
+ }Distance;
+ 
 void Wave_Init(void);
-int Get_Distance(void);
+void Get_Distance(void);
 
 #endif
