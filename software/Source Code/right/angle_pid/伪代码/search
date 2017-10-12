@@ -1,0 +1,24 @@
+/*-----------------------------------------------------------*/
+  @ 获取小车当前位置的坐标
+    * 小车起点坐标(5,3),当前方向Direction=0;
+
+void Get_position(void)
+{
+    if(C_distance.front-distance.front>42)
+    {
+        switch(Direction)
+        {
+            case(0):
+                CY+=1;
+            case(1):
+                CX+=1;
+            case(2):
+                CY-=1;
+            case(3):
+                CX-=1;
+        }
+        C_distance.front=distance.front;
+    }
+}
+
+
