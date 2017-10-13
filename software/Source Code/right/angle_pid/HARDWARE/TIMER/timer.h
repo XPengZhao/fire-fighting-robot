@@ -1,10 +1,10 @@
-#ifndef __SENSOR_H
-#define __SENSOR_H
+#ifndef __TIMER_H
+#define __TIMER_H
 
-#define ARR_SENSOR 999
-#define PSC_SENSOR 7199
+#define ARR_TIMER 39999
+#define PSC_TIMER 7199
 #include "sys.h"
 
-void Sensor_Init(void);
+void Timer_Init(void);
 
 #endif

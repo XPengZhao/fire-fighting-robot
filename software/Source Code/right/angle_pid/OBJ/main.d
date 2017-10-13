@@ -36,3 +36,4 @@
 ..\obj\main.o: ..\HARDWARE\MOTOR_PWM\Motor_Pwm.h
 ..\obj\main.o: ..\HARDWARE\MOVE\Move.h
 ..\obj\main.o: ..\HARDWARE\SEARCH\search.h
+..\obj\main.o: ..\HARDWARE\TIMER\timer.h

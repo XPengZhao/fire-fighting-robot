@@ -21,6 +21,7 @@ extern int Map[6][6];
 extern int turn_flag;
 extern int room_flag;
 extern int CX,CY,Direction,C_distance_front;
+extern int Count;
 
 void forward_left(void);
 void forward_right(void);

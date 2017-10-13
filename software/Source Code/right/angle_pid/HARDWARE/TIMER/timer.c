@@ -1,19 +1,19 @@
-#include "sensor.h"
+#include "timer.h"
 #include "wave_measure.h"
 #include "usart.h"
 #include "move.h"
 
-//通过修改 ARR_SENSOR 与 PSC_SENSOR 改变采样时间，暂定为100ms
+//通过修改 ARR_TIMER 与 PSC_TIMER 改变采样时间，暂定为 2s
 
-void Sensor_Init(void)
+void Timer_Init(void)
 {
     TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
     NVIC_InitTypeDef NVIC_InitStructure;
 
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM6, ENABLE); //时钟使能
 
-    TIM_TimeBaseStructure.TIM_Period = ARR_SENSOR;    //自动装载值
-    TIM_TimeBaseStructure.TIM_Prescaler = PSC_SENSOR; //预分频值
+    TIM_TimeBaseStructure.TIM_Period = ARR_TIMER;    //自动装载值
+    TIM_TimeBaseStructure.TIM_Prescaler = PSC_TIMER; //预分频值
     TIM_TimeBaseStructure.TIM_ClockDivision = 0; //设置时钟分割:TDTS = Tck_tim
     TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;  //TIM向上计数模式
     TIM_TimeBaseInit(TIM6, &TIM_TimeBaseStructure); //根据TIM_TimeBaseInitStruct中指定的参数初始化TIMx的时间基数单位
@@ -30,8 +30,8 @@ void Sensor_Init(void)
 void TIM6_IRQHandler(void)   //TIM6中断
 {
     if (TIM_GetITStatus(TIM6, TIM_IT_Update) != RESET) //检查指定的TIM中断发生与否:TIM 中断源 
-		{
-        Get_Distance_Front();
-				TIM_ClearITPendingBit(TIM6, TIM_IT_Update);  //清除TIMx的中断待处理位
+    {
+        Count++;
+        TIM_ClearITPendingBit(TIM6, TIM_IT_Update);  //清除TIMx的中断待处理位
     }
 }

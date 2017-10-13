@@ -6,6 +6,7 @@
 "..\obj\wave_measure.o"
 "..\obj\move.o"
 "..\obj\search.o"
+"..\obj\timer.o"
 "..\obj\delay.o"
 "..\obj\sys.o"
 "..\obj\usart.o"

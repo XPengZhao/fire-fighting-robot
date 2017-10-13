@@ -5,6 +5,7 @@
 #include "Motor_Pwm.h"
 #include "Move.h"
 #include "search.h"
+#include "timer.h"
 
 
 Distance distance={0,0,0},last_distance={0,0,0};
@@ -12,6 +13,7 @@ Angle angle={0,0};
 Angle last_angle={0,0};
 int Map[6][6]={0};
 int CX=5,CY=3,Direction=0,C_distance_front=105;
+int Count=1;
 int turn_flag=0;
 int room_flag=0;
 
@@ -24,17 +26,17 @@ int main(void)
     Wheel_Init();
     Wave_Init();
     parameter_init();
+	Timer_Init();
 
     while(1)
     {
-			Get_Distance();
-			if(distance.front<25)
-				judge(0);
-			else if(distance.front>70 && distance.front<80)
-				judge(1);
-            else judge(2);
-            Get_position();
-            printf("position:%d    %d	%d\r\n",CX,CY,C_distance_front);
-			delay_ms(50);
+        if(Count%2==0)
+        {
+            turn_left();
+            Count=1;
+            forward();
+			printf("1:%d\n",Count);
+        }
+		printf("2:%d\n",Count);
     }
 }
