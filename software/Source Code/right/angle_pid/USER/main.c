@@ -13,7 +13,7 @@ Angle angle={0,0};
 Angle last_angle={0,0};
 int Map[6][6]={0};
 int CX=5,CY=3,Direction=0,C_distance_front=105;
-int Count=1;
+int Count=0;
 int turn_flag=0;
 int room_flag=0;
 
@@ -25,15 +25,17 @@ int main(void)
     uart_init(9600);
     Wheel_Init();
     Wave_Init();
+    delay_ms(1000);
     parameter_init();
 	Timer_Init();
 
     while(1)
     {
-        if(Count%2==0)
+        if(Count/2>=1)
         {
-            turn_left();
-            Count=1;
+            stop();
+            delay_ms(1000);
+            Count=0;
             forward();
 			printf("1:%d\n",Count);
         }
