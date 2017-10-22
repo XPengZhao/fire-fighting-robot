@@ -1,0 +1,1 @@
+void judge(int n);

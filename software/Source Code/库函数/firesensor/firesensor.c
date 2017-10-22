@@ -50,7 +50,7 @@ ADC_SoftwareStartConvCmd(ADC1, ENABLE);//软件开启 ADC 转换
 }
 
 
-void DMA_Configuration()   //DMA配置
+void DMA_Configuration(void)   //DMA配置
 {
 	
 
@@ -80,6 +80,25 @@ ADC_DMACmd(ADC1, ENABLE);
 DMA_Cmd(DMA1_Channel1, ENABLE); //启动DMA通道
 
 }
+  void FAN_Init(void)   //风扇初始化接口
+{
+GPIO_InitTypeDef GPIO_InitStructure;
+RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOE, ENABLE); //使能PA,PD 端口时钟
+GPIO_InitStructure.GPIO_Pin = GPIO_Pin_13; //LED0-->PA.8 端口配置
+GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; //推挽输出
+GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz; //IO 口速度50MHz
+GPIO_Init(GPIOE, &GPIO_InitStructure); //初始化GPIOA.8
+
+}
+   void fan_on()
+	 {
+		 GPIO_SetBits(GPIOE,GPIO_Pin_13);
+	 }
+	  
+	 void fan_off()
+	{
+			GPIO_ResetBits(GPIOE,GPIO_Pin_13);
+	 }
 
 u16 GetVolt(u16 advalue)  //将数字信号转换成模拟信号
 
@@ -88,7 +107,9 @@ u16 GetVolt(u16 advalue)  //将数字信号转换成模拟信号
 
 }
 
-
+  vu16 AD_Value[N][M]; //用来存放ADC转换结果，也是DMA的目标地址
+  vu16 After_filter[M]; //用来存放求平均值之后的结果
+  u16 SIG[M];
 
 void filter(void)   //把SIG1和SIG2转换后的数字信号，采样N次后求平均值，让数据更加稳定
 {
@@ -102,6 +123,19 @@ for ( count=0;count<N;count++)
 After_filter[i]=sum/N;
 sum=0;
 }
+}
+
+void Get_Fire(void)
+	{
+	
+int i;
+filter();
+for(i=0;i<M;i++)
+{
+SIG[i]= GetVolt(After_filter[i]);
+	
+}
+
 }
 
 
