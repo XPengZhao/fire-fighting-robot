@@ -109,7 +109,7 @@ u16 GetVolt(u16 advalue)  //将数字信号转换成模拟信号
 
   vu16 AD_Value[N][M]; //用来存放ADC转换结果，也是DMA的目标地址
   vu16 After_filter[M]; //用来存放求平均值之后的结果
-  u16 SIG[M];
+  Fire sig={0,0};    
 
 void filter(void)   //把SIG1和SIG2转换后的数字信号，采样N次后求平均值，让数据更加稳定
 {
@@ -127,15 +127,9 @@ sum=0;
 
 void Get_Fire(void)
 	{
-	
-int i;
-filter();
-for(i=0;i<M;i++)
-{
-SIG[i]= GetVolt(After_filter[i]);
-	
-}
-
+	 filter();
+   sig.left= GetVolt(After_filter[0]);
+	 sig.right=GetVolt(After_filter[1]);
 }
 
 

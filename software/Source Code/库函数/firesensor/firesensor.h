@@ -5,10 +5,17 @@
 #define N 50
 #define M 2
 
+typedef struct{
+    u16  left;
+	  u16 right;
+}Fire;
+
 
 extern vu16 AD_Value[N][M]; //用来存放ADC转换结果，也是DMA的目标地址
 extern vu16 After_filter[M]; //用来存放求平均值之后的结果
-extern u16 SIG[M];       //存放最终电压值
+extern Fire sig;       //存放最终电压值
+
+
 
 void FAN_Init(void);    //风扇初始化接口 
 void fan_off();

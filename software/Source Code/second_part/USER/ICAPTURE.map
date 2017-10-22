@@ -544,7 +544,7 @@ Image Symbol Table
     up                                       0x08000e37   Thumb Code    76  move.o(.text)
     Sensor_Init                              0x08000ef5   Thumb Code    92  sensor.o(.text)
     TIM6_IRQHandler                          0x08000f51   Thumb Code    32  sensor.o(.text)
-    judge                                    0x08000f79   Thumb Code   346  search.o(.text)
+    judge                                    0x08000f79   Thumb Code   348  search.o(.text)
     delay_init                               0x08001105   Thumb Code    50  delay.o(.text)
     delay_us                                 0x08001137   Thumb Code    72  delay.o(.text)
     delay_ms                                 0x0800117f   Thumb Code    72  delay.o(.text)
@@ -945,26 +945,26 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-       212         18          0          4          0        987   delay.o
-       116         14          0         32         24     254016   main.o
-       220         22          0          0          0       1761   misc.o
-       184         10          0          0          0        661   motor_pwm.o
-       760        114          0          0          0       1732   move.o
-       396         50          0          0          0        792   search.o
-       132          8          0          0          0        674   sensor.o
-        64         26        304          0       1536        784   startup_stm32f10x_hd.o
-       860         38          0          0          0       5609   stm32f10x_gpio.o
-        26          0          0          0          0       1162   stm32f10x_it.o
-       932         36          0         20          0       8764   stm32f10x_rcc.o
-      3610         88          0          0          0      22092   stm32f10x_tim.o
-      1032         22          0          0          0       8332   stm32f10x_usart.o
+       212         18          0          4          0       1091   delay.o
+       116         14          0         32         24     254484   main.o
+       220         22          0          0          0       1865   misc.o
+       184         10          0          0          0        713   motor_pwm.o
+       760        114          0          0          0       1784   move.o
+       396         48          0          0          0        844   search.o
+       132          8          0          0          0        726   sensor.o
+        64         26        304          0       1536        836   startup_stm32f10x_hd.o
+       860         38          0          0          0       5713   stm32f10x_gpio.o
+        26          0          0          0          0       1214   stm32f10x_it.o
+       932         36          0         20          0       8920   stm32f10x_rcc.o
+      3610         88          0          0          0      22196   stm32f10x_tim.o
+      1032         22          0          0          0       8436   stm32f10x_usart.o
          0          0          0          0          0         32   sys.o
-       480         38          0         20          0       1683   system_stm32f10x.o
-       320         16          0          6        200       3126   usart.o
-      1792         80          0         12          0       3503   wave_measure.o
+       480         38          0         20          0       1839   system_stm32f10x.o
+       320         16          0          6        200       3282   usart.o
+      1792         80          0         12          0       3607   wave_measure.o
 
     ----------------------------------------------------------------------
-     11138        580        336         96       1760     315710   Object Totals
+     11138        578        336         96       1760     317582   Object Totals
          0          0         32          0          0          0   (incl. Generated)
          2          0          0          2          0          0   (incl. Padding)
 
@@ -1022,9 +1022,9 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     11928        622        336         96       1856     315262   Grand Totals
-     11928        622        336         96       1856     315262   ELF Image Totals
-     11928        622        336         96          0          0   ROM Totals
+     11928        620        336         96       1856     317134   Grand Totals
+     11928        620        336         96       1856     317134   ELF Image Totals
+     11928        620        336         96          0          0   ROM Totals
 
 ==============================================================================
 
