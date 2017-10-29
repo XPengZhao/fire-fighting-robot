@@ -38,21 +38,28 @@ void Approach();
 void bluetoothControl();
 void Command_Crotrol();
 
-void setup() {
+void setup() 
+{
   GPIO_Init();
   Angle_Init();
   Serial.begin(9600);
 }
 
-void loop() {
-  if(Serial.available()>=0)
+void loop() 
+{
+  if(Serial.available()>0)
   {
     Serial.println("Get Command");
     delay(100);
     command_char=Serial.read();
     switch(command_char)
     {
-      case '@':bluetoothControl();
+      case '@':
+        bluetoothControl();
+        break;
+      case '#':
+        Command_Crotrol();
+        break;
     }
   }
 }
@@ -110,7 +117,7 @@ void Raise()
 {
   int i=2,j=2,k=2;
 
-  myservo_front2.write(180);
+  myservo_front1.write(180);
   while(i--)
     delay(1000);
 
@@ -119,39 +126,34 @@ void Raise()
   while(j--)
     delay(1000);
 
-  myservo_front3.write(90);
+  myservo_front2.write(90);
   while(k--)
     delay(1000);
 }
 
 void Command_Crotrol()
 {
-  if(Serial.available()>=0){     //判断串口缓冲器的状态函数，用以判断数据是否送达串口
-    Serial.println("Get Big Command");
-    delay(100);
-    comdata=Serial.read();
-    switch(comdata)
+  Serial.println("Command_Crotrol");
+  command_char=Serial.read();
+    switch(command_char)
     {
-      case appraoch_command: Approach(); Serial.println("11111111111");break;
-
-
-      case raise_command1: Raise_front();Serial.println("22222222222");break;
-      case raise_command2: Angle_Init();break;
-
+      case 'A': 
+        Approach();
+        break;
+      case 'B': 
+        Catch();
+        break;
+      case 'C':
+        Raise();
+        break;
+      default:
+        Serial.println("nothing");
     }
-  }
-  else
-    Serial.println("nothing");
 }
 
 void bluetoothControl()
 {
-  while(Serial.read()!='@'){}
-  delay(100);
-  if(Serial.available()>=0)
-  {
-    Serial.println("get command");
-    delay(100);
+    Serial.println("bluetoothControl");
     command_char=Serial.read();
     if(command_char=='A'||'B'||'C'||'D')
     {
@@ -173,8 +175,8 @@ void bluetoothControl()
           break;
       }
       while(Serial.read()>0){}           //清空缓存区
+      command_char=0;
     } 
-  }
   else
     Serial.println("nothing");
 }
