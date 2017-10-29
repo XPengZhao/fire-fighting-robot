@@ -1,7 +1,10 @@
 #include <Servo.h>
 
 //left-->0    right-->180   前伸
-
+//#A-->接近物体   #B-->夹紧夹子    #C-->抬起手臂
+//@ABCD+角度 分别控制5个舵机
+#define LEFT_WHEEL 6
+#define RIGHT_WHEEL 7
 
 #define LEFT_0 8
 #define RIGHT_0 9
@@ -9,11 +12,6 @@
 #define FRONT_2 11
 #define FRONT_3 12
 
-#define appraoch_command  0x00        //接近物品
-#define open_command      0x10        //张开夹子
-#define catch_command     0x20        //夹住物品 
-#define raise_command1    0x20        //抬起前臂
-#define raise_command2    0x30        //抬起后臂 
 
 Servo myservo_left0;
 Servo myservo_right0;
@@ -21,13 +19,14 @@ Servo myservo_front1;
 Servo myservo_front2;
 Servo myservo_front3;
 
+Servo myservo_leftwheel;
+Servo myservo_rightwheel;
+
 int angle_left0=90;
 int angle_right0=90;
 int angle_front1=90;
 int angle_front2=90;
 int angle_front3=90;
-
-byte comdata=0;
 int command_char=0;
 int command_angle=90;
 
@@ -37,6 +36,14 @@ void Raise_front();
 void Approach();
 void bluetoothControl();
 void Command_Crotrol();
+void Go_straight();
+void Stop();
+void Go_back();
+void Turn_Left();
+void Turn_Right();
+void Adjust_Left();
+void Adjust_right();
+
 
 void setup() 
 {
@@ -61,6 +68,8 @@ void loop()
         Command_Crotrol();
         break;
     }
+    while(Serial.read()>=0){}           //清空缓存区
+    command_char=0;
   }
 }
 
@@ -73,6 +82,8 @@ void GPIO_Init()
   myservo_front1.attach(FRONT_1);
   myservo_front2.attach(FRONT_2);
   myservo_front3.attach(FRONT_3);
+  myservo_leftwheel.attach(LEFT_WHEEL);
+  myservo_rightwheel.attach(RIGHT_WHEEL);
 }
 
 void Angle_Init()
@@ -83,6 +94,8 @@ void Angle_Init()
   myservo_front1.write(180);
   myservo_front2.write(90);
   myservo_front3.write(90);
+  myservo_leftwheel.write(180);
+  myservo_rightwheel.write(0);
   while(i--)
     delay(1000);
   }
@@ -174,24 +187,22 @@ void bluetoothControl()
           myservo_front3.write(command_angle);
           break;
       }
-      while(Serial.read()>0){}           //清空缓存区
-      command_char=0;
     } 
   else
     Serial.println("nothing");
 }
-/*void GetCommand(void)
-{
-  
-  while(Serial.read()!='A'){}
-  command=Serial.parseInt();
-  switch(command)
-  {
-    case 0:myservo.write(0);break;
-    case 1:myservo.write(90);break;
-    case 2:myservo.write(180);break; 
-  }
-  Serial.println(command);
 
-}
-*/
+void Go_straight()
+{;}
+void Stop()
+{;}
+void Go_back()
+{;}
+void Turn_Left()
+{;}
+void Turn_Right()
+{;}
+void Adjust_Left()
+{;}
+void Adjust_right()
+{;}
