@@ -34,7 +34,7 @@ MDK5 中，MDK Core 是一个独立的安装包，它并不包含器件支持和
 
 **安装路径最好直接是D盘**，新建MDK5.14文件夹下。如下图所示。
 
-![路径]()
+![路径](image/MDK5.jpg)
 
 ### 2.2 设置信息
 
@@ -42,7 +42,7 @@ MDK5 中，MDK Core 是一个独立的安装包，它并不包含器件支持和
 
 >注意！**安装路径不要包含中文名字！**
 
-![设置信息]
+![设置信息](image/info.PNG)
 
 ### 2.3 Tools by ARM
 
@@ -55,6 +55,47 @@ MDK5 中，MDK Core 是一个独立的安装包，它并不包含器件支持和
 安装完成之后，点击 Finish, 之后，MDK 会自动弹出 Pack Installer 界面。
 
 ![安装成功](https://github.com/a-sleepy-cat/image-host/raw/master/fire-fighting-robot/%E7%AE%80%E6%98%8E%E6%95%99%E7%A8%8B/Image_005.jpg)
-![包安装器](Image_006.jpg)
+
+![包安装器](image/Image_006.jpg)
+
+从上图可以看出，安装MDK5.14后，CMSIS和MDK中间软件包已经安装了。另外，程序会自动去 KEIL的官网下载各种支持包，不过这个过程有可能失败。可以直接确定，关闭这个包安装器。我们可以自行去官网下载支持包。下载地址：<http://www.keil.com/dd2/pack>
+
+#### 2.4.1 STM32F103支持包安装
+
+这里我们以：STM32F103开发为例，则至少需要安装CMSIS 和STM32F103的器件支持包。CMSIS包MDK5.14 自带了，所以不需要单独再安装。所以只需要再安装STM32F103的器件支持包即可。
+
+支持包文件名为： Keil.STM32F1xx_DFP.1.0.5.pack，我们双击光盘的这个安装包，即可完成 MDK5.14 的安装（此时仅支持STM32F103的开发，其他MCU请自行在官网下载对应的器件支持包）。
 
 [keil 官网]: <http://www.keil.com/demo/eval/arm.htm> "http://www.keil.com/demo/eval/arm.htm"
+
+## 3. MDK5.14 破解
+
+**(破解仅供学习使用，严禁商业用途，如需用于商业用途，请购买正版软件！)**
+
+双击左面的图标（注意，如果直接双击无法注册，**请右键以管理员身份运行MDK5**，之后再注册），如图所示：
+
+![image](image/Image_008.jpg)
+
+然后，点击：File>License Management，调出注册管理界面，如图所示
+
+![image](image/Image_009.jpg)
+
+图 2.2 MDK5 注册界面
+
+从上图可以看出，此时是评估版，使用上面是有限制的，不能编译超过32K的代码，需要输入注册码以后才可以正常使用。
+
+接下来，我们看看如何注册。首先，运行keygen.exe（要先解压)，在keygen.exe 里面，设置Target为ARM，然后拷贝 MDK License Management 界面里面的 CID 号，到 keygen.exe里面CID栏，点击：Generate，即可获得注册码.
+
+![image](image/Image_010.jpg)
+
+图 2.3 获取注册码
+
+之后，拷贝注册码到 License Management 里面，点击 Add LIC 即可完成注册，如图 2.4
+
+所示：
+
+![image](image/Image_011.jpg)
+
+图 2.4 MDK5.14 完成注册
+
+从图中可以看到，我们破解后 MDK 可以用到 2020 年了。
