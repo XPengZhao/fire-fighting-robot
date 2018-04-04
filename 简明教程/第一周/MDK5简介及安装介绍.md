@@ -28,4 +28,33 @@ MDK5 中，MDK Core 是一个独立的安装包，它并不包含器件支持和
 
 ## 2. MDK5 安装
 
+打开 mdk514.exe,进行安装。MDK安装比较简单，基本只要一路按 next 即可。
+
+### 2.1 安装路径
+
+**安装路径最好直接是D盘**，新建MDK5.14文件夹下。如下图所示。
+
+![路径]()
+
+### 2.2 设置信息
+
+安装 MDK5 时会让你填写一些简单的信息，这些信息无关紧要，随便设置即可，如下图。
+
+>注意！**安装路径不要包含中文名字！**
+
+![设置信息]
+
+### 2.3 Tools by ARM
+
+安装软件可能会提示安装总线控制器，选择**安装**即可
+
+![总线控制器](https://github.com/a-sleepy-cat/image-host/raw/master/fire-fighting-robot/%E7%AE%80%E6%98%8E%E6%95%99%E7%A8%8B/4.PNG)
+
+### 2.4 Pack Installer
+
+安装完成之后，点击 Finish, 之后，MDK 会自动弹出 Pack Installer 界面。
+
+![安装成功](https://github.com/a-sleepy-cat/image-host/raw/master/fire-fighting-robot/%E7%AE%80%E6%98%8E%E6%95%99%E7%A8%8B/Image_005.jpg)
+![包安装器](Image_006.jpg)
+
 [keil 官网]: <http://www.keil.com/demo/eval/arm.htm> "http://www.keil.com/demo/eval/arm.htm"
