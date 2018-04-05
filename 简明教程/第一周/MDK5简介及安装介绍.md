@@ -2,7 +2,7 @@
 
 ## 1. MDK 5简介
 
-MDK 源自德国的 KEIL 公司，是 RealView MDK 的简称。在全球 MDK 被超过 10 万的嵌入式开发工程师使用。本项目采用的是：MDK5.14，该版本使用 uVision5 IDE 集成开发环境，是目前针对 ARM 处理器，尤其是 Cortex M 内核处理器的最佳开发工具。
+MDK 源自德国的 KEIL 公司，是 RealView MDK 的简称。在全球 MDK 被超过 10 万的嵌入式开发工程师使用。本项目采用的是：MDK5.14，该版本使用 uVision5 IDE [集成开发环境]，是目前针对 ARM 处理器，尤其是 Cortex M 内核处理器的最佳开发工具。
 
 ### 1.1 MDK5 兼容性
 
@@ -66,8 +66,6 @@ MDK5 中，MDK Core 是一个独立的安装包，它并不包含器件支持和
 
 支持包文件名为： Keil.STM32F1xx_DFP.1.0.5.pack，我们双击光盘的这个安装包，即可完成 MDK5.14 的安装（此时仅支持STM32F103的开发，其他MCU请自行在官网下载对应的器件支持包）。
 
-[keil 官网]: <http://www.keil.com/demo/eval/arm.htm> "http://www.keil.com/demo/eval/arm.htm"
-
 ## 3. MDK5.14 破解
 
 **(破解仅供学习使用，严禁商业用途，如需用于商业用途，请购买正版软件！)**
@@ -98,4 +96,8 @@ MDK5 中，MDK Core 是一个独立的安装包，它并不包含器件支持和
 
 图 2.4 MDK5.14 完成注册
 
-从图中可以看到，我们破解后 MDK 可以用到 2020 年了。
+从图中可以看到，我们破解后 MDK 可以
+
+[keil 官网]: <http://www.keil.com/demo/eval/arm.htm> "http://www.keil.com/demo/eval/arm.htm"
+
+[集成开发环境]: <../../基础概念/集成开发环境.md>
