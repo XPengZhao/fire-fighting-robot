@@ -4,7 +4,6 @@
 
 ![大纲](https://a-sleepy-cat.github.io/image-host/fire-fighting-robot/大纲.jpg)
 
-
 ## 简明教程
 
 - [第一周]
