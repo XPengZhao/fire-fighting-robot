@@ -15,4 +15,4 @@
 
 [安装集成开发环境 MDK5]: <https://github.com/a-sleepy-cat/fire-fighting-robot/tree/master/简明教程/第一周/MDK5简介及安装介绍.md>
 [新建基于固件库的MDK5工程模板]: <https://github.com/a-sleepy-cat/fire-fighting-robot/tree/master/简明教程/第一周/基于固件库的工程模板建立/新建工程模板.md>
-[跑马灯]: <./简明教程/第二周/跑马灯.md>
+[跑马灯]: <https://github.com/a-sleepy-cat/fire-fighting-robot/tree/master/简明教程/第二周/MDK5简介及安装介绍.md>
