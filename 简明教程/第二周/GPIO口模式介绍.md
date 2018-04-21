@@ -11,8 +11,8 @@
 ![引脚配置6]
 
 [引脚配置1]: <./image/3.png>
-[引脚配置2]: <./image/2.png>
-[引脚配置3]: <./image/1.png>
+[引脚配置2]: <./image/8.png>
+[引脚配置3]: <./image/7.png>
 [引脚配置4]: <./image/4.png>
 [引脚配置5]: <./image/5.png>
 [引脚配置6]: <./image/6.png>
