@@ -29,8 +29,8 @@
 [新建基于固件库的MDK5工程模板]: <https://github.com/a-sleepy-cat/fire-fighting-robot/tree/master/简明教程/第一周/基于固件库的工程模板建立/新建工程模板.md>
 [跑马灯]: <https://github.com/a-sleepy-cat/fire-fighting-robot/tree/master/简明教程/第二周/跑马灯.md>
 [组织跑马灯代码]: <https://github.com/a-sleepy-cat/fire-fighting-robot/tree/master/简明教程/第三周/组织跑马灯代码.md>
-[stm32中断讲解]: <>
-[串口通信讲解]: <>
-[传感器部分讲解]: <>
-[算法部分讲解]: <>
-[进宫调试]: <>
+[stm32中断讲解]: <./>
+[串口通信讲解]: <./>
+[传感器部分讲解]: <./>
+[算法部分讲解]: <./>
+[进宫调试]: <./>
