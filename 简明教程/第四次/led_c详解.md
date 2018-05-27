@@ -8,7 +8,7 @@
 //切换红色LED灯电平
 void RED_TOGGLE(void)
 {
-  if(!GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_8))                  //PA.8输出低，LED亮
+  if(!GPIO_ReadOutputDataBit(GPIOA,GPIO_Pin_8))                  //PA.8输出低，LED亮
   {
     GPIO_SetBits(GPIOA,GPIO_Pin_8);
   }
@@ -21,7 +21,7 @@ void RED_TOGGLE(void)
 //切换绿色LED灯电平
 void GREED_TOGGLE(void)
 {
-  if(!GPIO_ReadInputDataBit(GPIOD,GPIO_Pin_2))                  //PD.2输出低，LED亮
+  if(!GPIO_ReadOutputDataBit(GPIOD,GPIO_Pin_2))                  //PD.2输出低，LED亮
   {
     GPIO_SetBits(GPIOD,GPIO_Pin_2);
   }
