@@ -15,7 +15,7 @@ extern u16	TIM3CH3_CAPTURE_VAL;	//输入捕获值
 	int distance=0;
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);// 设置中断优先级分组2
 	delay_init();	    	 		//延时函数初始化	
-	uart_init(9600);	 			//9600	 
+	uart_init(115200);	 			//9600	 
 	WAVE_Left_Init();		  		//初始化与LED连接的硬件接口
  	TIM3_Cap_Init(49999,71);		//以1Mhz的频率计数 
    	while(1)
